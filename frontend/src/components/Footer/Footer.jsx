@@ -40,10 +40,10 @@ const Footer = () => {
                             <a href="#pricing" class="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Pricing</a>
                         </li>
                         <li>
-                            <a href="#feature" class="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">How It Works</a>
+                            <a href="#how-it-works" class="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">How It Works</a>
                         </li>
                         <li>
-                            <a href="#feature" class="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">FAQ</a>
+                            <a href="#faq" class="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">FAQ</a>
                         </li>
                     </ul>
                 </div>

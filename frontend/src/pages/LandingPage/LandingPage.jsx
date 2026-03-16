@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Minus, Plus } from "lucide-react";
 import hero1 from "../../assets/hero1.png";
 import hero2 from "../../assets/hero2.png";
 import arrow from "../../assets/arrow.png";
@@ -29,9 +31,46 @@ import card3 from "../../assets/card3.png";
 import star from "../../assets/star.png";
 import mark from "../../assets/mark.png";
 import mark1 from "../../assets/mark1.png";
+import arrowright from "../../assets/arrow-right.png";
 import Footer from "../../components/Footer/Footer";
 
+
+const faqData = [
+    {
+        question: "What is Carteon Smartcard?",
+        answer:
+            "Carteon Smartcard is a premium NFC-enabled smart card that acts as your digital identity hub. It allows you to share your contact information, social profiles, and professional portfolio with a single tap on any NFC-enabled smartphone.",
+    },
+    {
+        question: "How does profile switching work?",
+        answer:
+            "Profile switching allows you to change the information your smart card shares. You can easily switch between personal, business, or custom profiles directly from your dashboard.",
+    },
+    {
+        question: "Can I customize my profile design?",
+        answer:
+            "Yes. You can customize colors, layout, images, and content on your profile page to reflect your personal or business brand.",
+    },
+    {
+        question: "Is my data secure?",
+        answer:
+            "Yes. All user data is securely stored and protected using modern encryption standards. Only the information you choose to share will be visible to others.",
+    },
+    {
+        question: "How long will it take for me to receive my card after payment?",
+        answer:
+            "Orders are typically processed within 24–48 hours and delivered within 3–7 business days depending on your location.",
+    },
+];
+
 const LandingPage = () => {
+
+    const [active, setActive] = useState(0);
+
+    const toggle = (index) => {
+        setActive(active === index ? null : index);
+    };
+
     return (
         <div className="w-full">
             <section className="h-[820px] flex justify-between bg-white relative py-[40px] px-[80px]">
@@ -419,22 +458,22 @@ const LandingPage = () => {
                     <h2 class="font-inter font-semibold text-[40px] leading-[60px] tracking-[0px] text-black text-center align-middle">Simple, Transparent Pricing</h2>
                     <p class="font-inter font-medium text-[20px] leading-[60px] tracking-[0px] text-[#0A0F1A] text-center align-middle">Start with one profile, upgrade when you need more professional identities</p>
                 </div>
-                <div className="mt-[60px] flex gap-10">
-                    <div class="w-[413px] h-[539px] rounded-[20px] bg-white border-2 border-[#E5E7EB] p-5">
-                        <h4 class="font-inter font-bold text-[24px] leading-[32px] tracking-[0px] text-[#101828]">Standard</h4>
+                <div className="mt-[60px] flex gap-6">
+                    <div class="w-[363px] h-[539px] rounded-[20px] bg-white border-2 border-[#E5E7EB] p-5">
+                        <h4 class="font-inter font-bold mt-[10px] text-[24px] leading-[32px] tracking-[0px] text-[#101828]">Standard</h4>
                         <p class="font-inter mt-[10px] font-normal text-[14px] leading-[20px] tracking-[0px] text-[#525252]">Perfect for getting started</p>
-                        <div className="mt-[50px]">
+                        <div className="mt-[40px]">
                             <h4 class="font-arimo font-bold text-[36px] leading-[40px] tracking-[0px] text-[#101828]">Included</h4>
                             <p class="font-inter mt-[10px] font-normal text-[14px] leading-[20px] tracking-[0px] text-[#4A5565]">with card purchase</p>
                         </div>
                         <ul className="mt-[50px] flex flex-col gap-5">
                             <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153]">
                                 <img src={mark1} alt="" />
-                                1 Default Profile                           
+                                1 Default Profile
                             </li>
                             <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153]">
                                 <img src={mark1} alt="" />
-                               Instant NFC tap sharing
+                                Instant NFC tap sharing
                             </li>
                             <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153]">
                                 <img src={mark1} alt="" />
@@ -449,28 +488,141 @@ const LandingPage = () => {
                                 Mobile-optimized design
                             </li>
                         </ul>
-                        <div class="w-[373px] h-[48px] rounded-[8px] bg-[#F3F4F6] px-[104px] py-[12px] mt-[30px]">
+                        <div class="w-[323px] h-[48px] rounded-[8px] bg-[#F3F4F6] px-[84px] py-[12px] mt-[30px]">
                             <a href="" class="font-inter font-semibold text-[16px] leading-[24px] tracking-[0px] text-[#6A7282] text-center" >Included with Card</a>
                         </div>
                     </div>
-                    <div class="w-[408px] h-[575px] relative rounded-[24px] bg-white border-2 border-t-[2px] border-t-[#252C46] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]">
-                        <div class="w-[141px] h-[29px] flex items-center gap-1 px-[14px] py-[3px] absolute top-[-10px] left-23 rounded-[33554400px] bg-[#252C46]">
+                    <div class="w-[408px] h-[575px] relative rounded-[24px] bg-white border-2 border-t-[2px] border-t-[#252C46] p-5 shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]">
+                        <div class="w-[141px] h-[29px] flex items-center gap-1 px-[14px] py-[3px] absolute top-[-10px] left-32 rounded-[33554400px] bg-[#252C46]">
                             <div>
                                 <img src={star} alt="" />
                             </div>
                             <p class="font-arimo font-normal text-[14px] leading-[20px] tracking-[0px] text-white">Most Popular</p>
                         </div>
+                        <h4 class="font-inter mt-[20px] font-bold text-[24px] leading-[32px] tracking-[0px] text-[#101828]">Multi-Profile</h4>
+                        <p class="font-inter mt-[10px] font-normal text-[14px] leading-[20px] tracking-[0px] text-[#525252]">For multi-faceted professionals</p>
+                        <div className="mt-[40px]">
+                            <h4 class="font-arimo font-bold text-[36px] leading-[40px] tracking-[0px] text-[#101828]">₦10,000</h4>
+                            <p class="font-inter mt-[10px] font-normal text-[14px] leading-[20px] tracking-[0px] text-[#4A5565]">per year</p>
+                        </div>
+                        <ul className="mt-[30px] flex flex-col gap-5">
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#1A1A1A]">
+                                <img src={mark1} alt="" />
+                                Everything in Standard
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#1A1A1A]">
+                                <img src={mark1} alt="" />
+                                Unlock 4 additional profiles
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#1A1A1A]">
+                                <img src={mark1} alt="" />
+                                Switch identities instantly
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#1A1A1A] ">
+                                <img src={mark1} alt="" />
+                                CEO, Consultant, Speaker, etc.
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#1A1A1A]">
+                                <img src={mark1} alt="" />
+                                Separate contact info per profile
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#1A1A1A]">
+                                <img src={mark1} alt="" />
+                                Priority support
+                            </li>
+                        </ul>
+                        <div class="w-[373px] h-[48px] rounded-[8px] bg-[#252C46] px-[94px] py-[12px] mt-[22px]">
+                            <a href="" class="font-inter font-semibold text-[16px] leading-[24px] tracking-[0px] text-[#FFFFFF] text-center" >Upgrade to Multi-Profile</a>
+                        </div>
                     </div>
-                    <div class="w-[413px] h-[539px] rounded-[20px] bg-white border-2 border-[#E5E7EB] p-5">
-
+                    <div class="w-[363px] h-[539px] rounded-[20px] bg-white border-2 border-[#E5E7EB] p-5">
+                        <h4 class="font-inter font-bold mt-[10px] text-[24px] leading-[32px] tracking-[0px] text-[#101828]">Branded Template</h4>
+                        <p class="font-inter mt-[10px] font-normal text-[14px] leading-[20px] tracking-[0px] text-[#525252]">Corporate & executive branding</p>
+                        <div className="mt-[40px]">
+                            <h4 class="font-arimo font-bold text-[36px] leading-[40px] tracking-[0px] text-[#101828]">₦18,000</h4>
+                            <p class="font-inter mt-[10px] font-normal text-[14px] leading-[20px] tracking-[0px] text-[#4A5565]">per year</p>
+                        </div>
+                        <ul className="mt-[30px] flex flex-col gap-5">
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153]">
+                                <img src={mark} alt="" />
+                                Everything in Standard
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153]">
+                                <img src={mark} alt="" />
+                                Custom brand colors
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153]">
+                                <img src={mark} alt="" />
+                                Company logo integration
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153] ">
+                                <img src={mark} alt="" />
+                                Custom typography
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153]">
+                                <img src={mark} alt="" />
+                                Branded design elements
+                            </li>
+                            <li className="flex items-center gap-4 font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#364153]">
+                                <img src={mark} alt="" />
+                                Professional identity
+                            </li>
+                        </ul>
+                        <div class="w-[323px] h-[48px] rounded-[8px] bg-[#000000] px-[84px] py-[12px] mt-[20px]">
+                            <a href="" class="font-inter font-semibold text-[16px] leading-[24px] tracking-[0px] text-[#FFFFFF] text-center" >Included with Card</a>
+                        </div>
                     </div>
                 </div>
                 <div>
 
                 </div>
             </section>
-            <section id="faq" className="h-[1012px] w-full bg-[#F5F5F5] py-[60px] px-[80px]">
+            <section id="faq" className="h-[902px] w-full bg-[#F5F5F5] py-[60px] px-[80px]">
+                <div className="flex items-center justify-between mt-[30px]">
+                    <div className="flex flex-col gap-4">
+                        <div className="w-[68px] h-[35px] bg-white rounded-[100px] pt-[12px] pr-[16px] pb-[8px] pl-[16px] font-open-sans font-medium text-[14px] text-[#525252] leading-[100%] tracking-[0%]">FAQs</div>
+                        <h2 className="font-[Inter] w-[574px] font-semibold text-[48px] text-[#1A1A1A] leading-[74px] tracking-[0%]">Frequently Asked Question</h2>
+                    </div>
+                    <div>
+                        <p className="font-[Inter] w-[442px] font-normal text-[18px] text-[#5A5A59] leading-[100%] tracking-[0%]">Find quick answers to the most common questions about our services, process, and support</p>
+                        <div>
+                            <a href="#" className="mt-[20px]  w-[151px] h-[51px] bg-[#252C46] rounded-[80px] py-[16px] px-[32px] font-[Inter] font-semibold text-[16px] text-white leading-[100%] flex items-center gap-[10px]">View all <img src={arrowright} alt="" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-[60px] flex flex-col gap-[16px]">
+                    {faqData.map((faq, index) => (
+                        <div
+                            key={index}
+                            className="bg-white rounded-[12px] px-6 py-5 cursor-pointer transition-all"
+                        >
+                            <div
+                                className="flex items-center justify-between"
+                                onClick={() => toggle(index)}
+                            >
+                                <h3 className="font-[Inter] font-semibold text-[24px] text-[#131313] leading-[30px]">
+                                    {faq.question}
+                                </h3>
 
+                                <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full border border-[#E5E5E5] bg-white">
+                                    {active === index ? (
+                                        <Minus size={18} />
+                                    ) : (
+                                        <Plus size={18} />
+                                    )}
+                                </div>
+                            </div>
+
+                            {active === index && (
+                                <div className="mt-4">
+                                    <p className="w-[929px] font-[Inter] font-normal text-[18px] text-[#525252] leading-[100%] leading-relaxed">
+                                        {faq.answer}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
             </section>
             <section className="h-[528px] w-full bg-[#1A1A1A] py-[60px] px-[80px]">
                 <div className="flex flex-col justify-center items-center gap-5 mt-[40px]">
