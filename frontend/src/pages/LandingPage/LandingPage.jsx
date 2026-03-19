@@ -591,70 +591,171 @@ const LandingPage = () => {
             </section>
             <section className="w-full bg-[#F5F5F5] py-[60px] px-[20px] md:px-[40px] lg:px-[80px]">
                 <div className="flex flex-col gap-3 justify-center items-center">
-                    <h2 className="font-inter font-bold text-[24px] md:text-[28px] lg:text-[30.6px] text-[#1A1A1A] leading-[32px] md:leading-[36px] lg:leading-[40px] text-center tracking-[0%] align-middle">Choose Your Carteon Smart Card</h2>
-                    <p className="w-full max-w-[653px] font-inter font-normal text-[16px] md:text-[18px] lg:text-[20px] text-[#525252] leading-[24px] md:leading-[26px] lg:leading-[28px] text-center align-middle tracking-[0%]">Select the card that matches your style. All cards come with full NFC functionality.</p>
+                    <h2 className="font-inter font-bold text-[24px] md:text-[28px] lg:text-[30.6px] text-[#1A1A1A] leading-[32px] md:leading-[36px] lg:leading-[40px] text-center tracking-[0%] align-middle">
+                        Choose Your Carteon Smart Card
+                    </h2>
+                    <p className="w-full max-w-[653px] font-inter font-normal text-[16px] md:text-[18px] lg:text-[20px] text-[#525252] leading-[24px] md:leading-[26px] lg:leading-[28px] text-center align-middle tracking-[0%]">
+                        Select the card that matches your style. All cards come with full NFC functionality.
+                    </p>
                 </div>
-                <div className="flex flex-col md:flex-row gap-[20px] md:gap-[30px] mt-[40px] md:mt-[70px] justify-center items-start">
+                <div className="hidden md:flex flex-col md:flex-row gap-[20px] md:gap-[30px] mt-[40px] md:mt-[70px] justify-center items-start">
                     <div className="w-full md:w-[403px] h-auto md:h-[773px] bg-white rounded-[20px] flex flex-col gap-3 p-[20px]">
                         <div>
                             <img src={card1} alt="Carteon Smart Card" className="w-full h-auto rounded-lg object-cover" />
                         </div>
-                        <h5 className="font-inter font-bold text-[20.4px] text-[#1A1A1A] leading-[32px] tracking-[0%] align-middle">Carteon Smart Card</h5>
-                        <p className="font-inter font-normal text-[14px] text-[#6B7280] leading-[20px] align-middle tracking-[0%]">Premium stainless steel NFC card with instant tap connectivity.</p>
-                        <p className="font-inter font-bold text-[30.6px] text-[#1A1A1A] leading-[40px] align-middle tracking-[0%]">₦50,000 <span className="font-inter font-normal text-[20px] text-[#1A1A1A] leading-[40px] align-middle tracking-[0%]">/ one-time</span></p>
+                        <h5 className="font-inter font-bold text-[20.4px] text-[#1A1A1A] leading-[32px]">Carteon Smart Card</h5>
+                        <p className="font-inter text-[14px] text-[#6B7280]">Premium stainless steel NFC card with instant tap connectivity.</p>
+                        <p className="font-inter font-bold text-[30.6px] text-[#1A1A1A]">₦50,000 <span className="font-normal text-[20px]">/ one-time</span></p>
                         <ul className="mt-[20px] flex flex-col gap-5">
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />NFC Tap Technology</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />QR Code Fallback</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />1 Default Profile</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Contact Collection System</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Email Notifications</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Lifetime Profile Edits</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />NFC Tap Technology</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />QR Code Fallback</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />1 Default Profile</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Contact Collection System</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Email Notifications</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Lifetime Profile Edits</li>
                         </ul>
                         <div className="mt-[50px] flex justify-center">
-                            <a href="#" className="w-full max-w-[600px] h-[50px] rounded-[8px] border border-[#1A1A1A] bg-white py-[14px] px-[24px] font-inter font-medium text-[14px] text-[#1A1A1A] leading-[24px] text-center align-middle mx-auto block">Buy Now</a>
+                            <a href="#" className="w-full h-[50px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]">Buy Now</a>
                         </div>
                     </div>
                     <div className="w-full md:w-[403px] h-auto md:h-[773px] bg-white rounded-[20px] flex flex-col gap-3 p-[20px]">
                         <div>
                             <img src={card2} alt="Carteon Smart Card" className="w-full h-auto rounded-lg object-cover" />
                         </div>
-                        <h5 className="font-inter font-bold text-[20.4px] text-[#1A1A1A] leading-[32px] tracking-[0%] align-middle">PVC QR Card</h5>
-                        <p className="font-inter font-normal text-[14px] text-[#6B7280] leading-[20px] align-middle tracking-[0%]">Premium stainless steel NFC card with instant tap connectivity.</p>
-                        <p className="font-inter font-bold text-[30.6px] text-[#1A1A1A] leading-[40px] align-middle tracking-[0%]">₦30,000 <span className="font-inter font-normal text-[20px] text-[#1A1A1A] leading-[40px] align-middle tracking-[0%]">/ one-time</span></p>
+                        <h5 className="font-inter font-bold text-[20.4px] text-[#1A1A1A]">PVC QR Card</h5>
+                        <p className="font-inter text-[14px] text-[#6B7280]">Premium stainless steel NFC card with instant tap connectivity.</p>
+                        <p className="font-inter font-bold text-[30.6px] text-[#1A1A1A]">₦30,000</p>
                         <ul className="mt-[20px] flex flex-col gap-5">
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Printed QR Code</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />1 Default Profile</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Contact Collection System</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Email Notifications</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Lifetime Profile Edits</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Printed QR Code</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />1 Default Profile</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Contact Collection System</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Email Notifications</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Lifetime Profile Edits</li>
                         </ul>
-                        <p className="mt-[7px] font-inter font-normal text-[14px] text-[#000000] leading-[20px] align-middle">QR Scan Only (No NFC Tap)</p>
+                        <p className="text-[14px] mt-[7px]">QR Scan Only (No NFC Tap)</p>
                         <div className="mt-[50px] flex justify-center">
-                            <a href="#" className="w-full max-w-[600px] h-[50px] rounded-[8px] border border-[#1A1A1A] bg-white py-[14px] px-[24px] font-inter font-medium text-[14px] text-[#1A1A1A] leading-[24px] text-center align-middle mx-auto block">Buy Now</a>
+                            <a href="#" className="w-full h-[50px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]">Buy Now</a>
                         </div>
                     </div>
-
-                    {/* Card 3 */}
                     <div className="w-full md:w-[403px] h-auto md:h-[773px] bg-white rounded-[20px] flex flex-col gap-3 p-[20px]">
                         <div>
                             <img src={card3} alt="Carteon Smart Card" className="w-full h-auto rounded-lg object-cover" />
                         </div>
-                        <h5 className="font-inter font-bold text-[20.4px] text-[#1A1A1A] leading-[32px] tracking-[0%] align-middle">Complete Package</h5>
-                        <p className="font-inter font-normal text-[14px] text-[#6B7280] leading-[20px] align-middle tracking-[0%]">Premium stainless steel NFC card with instant tap connectivity.</p>
-                        <p className="font-inter font-bold text-[30.6px] text-[#1A1A1A] leading-[40px] align-middle tracking-[0%]">₦50,000 <span className="font-inter font-normal text-[20px] text-[#1A1A1A] leading-[40px] align-middle tracking-[0%]">/ one-time</span></p>
+                        <h5 className="font-inter font-bold text-[20.4px] text-[#1A1A1A]">Complete Package</h5>
+                        <p className="font-inter text-[14px] text-[#6B7280]">Premium stainless steel NFC card with instant tap connectivity.</p>
+                        <p className="font-inter font-bold text-[30.6px] text-[#1A1A1A]">₦50,000</p>
                         <ul className="mt-[20px] flex flex-col gap-5">
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />1 NFC Smart Card (Selected Finish)</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />1 PVC QR Backup Card</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />QR + NFC Enabled</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />1 Digital Profile</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Contact Collection System</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Email Notifications</li>
-                            <li className="flex items-center gap-3 font-inter font-normal text-[14px] text-[#525252] leading-[20px] align-middle tracking-[0%]"><img src={ttick} alt="tick-icon" />Lifetime Profile Edits</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />1 NFC Smart Card</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />1 PVC QR Backup Card</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />QR + NFC Enabled</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />1 Digital Profile</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Contact Collection System</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Email Notifications</li>
+                            <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />Lifetime Profile Edits</li>
                         </ul>
                         <div className="mt-[11px] flex justify-center">
-                            <a href="#" className="w-full max-w-[600px] h-[50px] rounded-[8px] border border-[#1A1A1A] bg-white py-[14px] px-[24px] font-inter font-medium text-[14px] text-[#1A1A1A] leading-[24px] text-center align-middle mx-auto block">Buy Now</a>
+                            <a href="#" className="w-full h-[50px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]">Buy Now</a>
                         </div>
                     </div>
+                </div>
+                <div className="block md:hidden mt-[40px] overflow-x-auto">
+                    <table className="w-full h-auto pb-[5px] border border-[#E5E7EB] rounded-[12px] overflow-hidden shadow-md border-separate border-spacing-0">
+                        <thead>
+                            <tr className="bg-[#000] text-[#fff]">
+                                <th className="p-2 text-left font-inter font-bold text-[16px] leading-[20px] tracking-[0px] text-[#fff] align-middle">Features</th>
+                                <th className="p-2 font-inter font-bold text-[16px] leading-[20px] tracking-[0px] text-[#fff] align-middle">Carteon Smart Card</th>
+                                <th className="p-2 font-inter font-bold text-[16px] leading-[20px] tracking-[0px] text-[#fff] align-middle">PVC QR Card</th>
+                                <th className="p-2 font-inter font-bold text-[16px] leading-[20px] tracking-[0px] text-[#fff] align-middle">Complete Package</th>
+                            </tr>
+                        </thead>
+                        <tbody className="[&>tr:nth-child(even)]:bg-[#FAFAFA]">
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Image</td>
+                                <td><img src={card1} className="w-[70px] mx-auto" /></td>
+                                <td><img src={card2} className="w-[70px] mx-auto" /></td>
+                                <td><img src={card3} className="w-[70px] mx-auto" /></td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Price</td>
+                                <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦50,000</td>
+                                <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦30,000</td>
+                                <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦50,000</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Email Notification</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Lifetime Profile Edits</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Contact Collection System</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">NFC Tap Technology</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">❌</td>
+                                <td className="text-center">✅</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Printed QR Code</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">1 Default Profile</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">✅</td>
+                                <td className="text-center">❌</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">QR + NFC Enabled</td>
+                                <td className="text-center">❌</td>
+                                <td className="text-center">❌</td>
+                                <td className="text-center">✅</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">1 NFC Smart Card</td>
+                                <td className="text-center">❌</td>
+                                <td className="text-center">❌</td>
+                                <td className="text-center">✅</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">1 PVC QR Backup Card</td>
+                                <td className="text-center">❌</td>
+                                <td className="text-center">❌</td>
+                                <td className="text-center">✅</td>
+                            </tr>
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Action</td>
+                                <td><a href="#" className="block text-center border py-1 w-[70px] mt-[5px] h-[50px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]">Buy</a></td>
+                                <td><a href="#" className="block text-center border py-1 w-[70px] mt-[5px] h-[50px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]">Buy</a></td>
+                                <td><a href="#" className="block border py-1 w-[70px] h-[50px] ml-[8px] mt-[5px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]">Buy</a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </section>
             <section className="w-full bg-white py-[60px] px-[20px] md:px-[40px] lg:px-[80px] h-auto md:h-[690px]">
@@ -715,7 +816,143 @@ const LandingPage = () => {
                     </p>
                 </div>
 
-                <div className="mt-[60px] flex flex-col md:flex-row gap-6 items-center justify-center">
+                <div className="mt-[40px] md:hidden overflow-x-auto">
+                    <table className="w-full border border-[#E5E7EB] rounded-[12px] overflow-hidden text-left">
+                        <thead className="bg-[#000] font-inter text-[#fff]">
+                            <tr>
+                                <th className="p-3 text-[14px] font-bold">Features</th>
+                                <th className="p-3 text-[14px] font-bold text-center">Standard</th>
+                                <th className="p-3 text-[14px] font-bold text-center">Multi-Profile (Most Popular)</th>
+                                <th className="p-3 text-[14px] font-bold text-center">Branded Template</th>
+                            </tr>
+                        </thead>
+
+                        <tbody className="[&>tr:nth-child(even)]:bg-[#FAFAFA] text-[14px]">
+
+                            <tr className="border-t border-[#E5E7EB]">
+                                <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Price (per year)</td>
+                                <td className="text-center font-inter font-bold text-[14px] text-[#000]">Included with card purchase</td>
+                                <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦10,000</td>
+                                <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦18,000</td>
+                            </tr>
+
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">1 Default Profile</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Instant NFC tap sharing</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Profile photo/logo</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Contact information & links</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Mobile-optimized design</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Unlock 4 additional profiles</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center">✕</td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Switch identities instantly</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center">✕</td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">CEO, Consultant, Speaker, etc.</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center">✕</td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Separate contact info per profile</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center">✕</td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Priority support</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                                <td className="text-center">✕</td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Custom brand colors</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Company logo integration</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Custom typography</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Professional identity</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-inter font-bold text-[14px] text-[#000]">Branded design elements</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center">✕</td>
+                                <td className="text-center"><img src={mark1} className="mx-auto" /></td>
+                            </tr>
+                            <tr className="border-t">
+                                <td className="p-3 font-semibold">Get Started</td>
+                                <td className="p-2 text-center">
+                                    <button className="bg-[#1A1A1A] text-white px-3 py-2 rounded text-[12px]">
+                                        Included
+                                    </button>
+                                </td>
+                                <td className="p-2 text-center">
+                                    <button className="bg-[#1A1A1A] text-white px-3 py-2 rounded text-[12px]">
+                                        Upgrade
+                                    </button>
+                                </td>
+                                <td className="p-2 text-center">
+                                    <button className="bg-[#1A1A1A] text-white px-3 py-2 rounded text-[12px]">
+                                        Included
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="hidden md:flex mt-[60px] flex-col md:flex-row gap-6 items-center justify-center">
                     <div className="w-full md:w-[363px] h-auto md:h-[539px] rounded-[20px] bg-white border-2 border-[#E5E7EB] p-5">
                         <h4 className="font-inter font-bold mt-[10px] text-[24px] leading-[32px] tracking-[0px] text-[#101828]">Standard</h4>
                         <p className="font-inter mt-[10px] font-normal text-[14px] leading-[20px] tracking-[0px] text-[#525252]">Perfect for getting started</p>
