@@ -6,7 +6,7 @@ export const getProfileSchema = z.object({
     }),
     query: z.object({
         profileId: z.string().optional(),
-    }),
+    }).optional(),
 });
 
 export const createLeadSchema = z.object({

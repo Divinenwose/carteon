@@ -21,6 +21,20 @@ Welcome to the backend component of the **Carteon Smart Card** platform. This RE
     PORT=3000
     MONGO_URI=mongodb://localhost:27017/carteon
     NODE_ENV=development
+
+    # SMTP Configuration
+    SMTP_HOST=smtp.ethereal.email
+    SMTP_PORT=587
+    SMTP_SECURE=false
+    SMTP_USER=ethereal_user
+    SMTP_PASSWORD=ethereal_pass
+    FROM_EMAIL="Carteon Alerts" <alerts@carteon.com>
+
+    # Paystack Webhook Configuration
+    PAYMENT_WEBHOOK_SECRET=your_paystack_webhook_test_secret
+
+    # Internal MVP Scripts
+    ADMIN_API_KEY=default_admin_key_for_dev
     ```
 3.  **Start the server locally**:
     ```bash
@@ -134,11 +148,98 @@ All public-facing API routes are prefixed with `/api/v1/`.
 
 ---
 
-### *🚧 Upcoming Endpoints (Currently in Development)*
-*The following endpoints are part of the roadmap and will be available soon:*
+### 3. Lead Capture & Notifications
 
-*   **Lead Capture**: `POST /api/v1/leads/:profileId` (For lead capturing when a recipient shares their contact. Sends email notification to card owner).
-*   **Ordering APIs**: `POST /api/v1/orders` (For checkout integration) & `POST /api/v1/webhooks/payment` (For automated payment updates).
-*   **Admin APIs**: `POST /api/v1/admin/*` (Internal dashboard for MVP manual activation flows).
+#### Share Contact with Card Owner
+*   **Endpoint:** `POST /api/v1/leads/:profileId`
+*   **Description:** Submits visitor contact details to the owner of the `profileId`. This action automatically fires an email notification containing the lead's information to the user's primary email using the subject `"New Contact from Your Carteon Card"`.
+*   **Request Body:**
+    ```json
+    {
+      "recipientName": "Interested Client",
+      "recipientEmail": "client@example.com",
+      "recipientPhone": "+2348012345678",
+      "recipientCompany": "Optional Company Ltd"
+    }
+    ```
+*   **Success Response (201 Created):**
+    ```json
+    {
+      "status": "success",
+      "message": "Contact shared successfully!",
+      "data": { ...leadObject }
+    }
+    ```
+*   **Error Response (400 Bad Request):** Returns missing/invalid field messages.
+
+---
+
+### 4. Checkout & Ordering
+
+#### Initialize Order
+*   **Endpoint:** `POST /api/v1/orders`
+*   **Description:** Creates a new order instance internally and initializes a payment session externally (Paystack).
+*   **Request Body:**
+    ```json
+    {
+       "customerData": {
+          "name": "John Doe",
+          "email": "john.doe@example.com",
+          "phone": "+2348000000000",
+          "address": "Lekki Phase 1"
+       },
+       "items": [
+          { "cardType": "COMPLETE_PACKAGE", "quantity": 1 }
+       ],
+       "totalAmount": 15000
+    }
+    ```
+*   **Success Response (201 Created):**
+    ```json
+    {
+      "status": "success",
+      "message": "Order created and payment initialized",
+      "data": {
+        "reference": "CRT_e8a21f1d...",
+        "paymentUrl": "https://checkout.paystack.com/test_url"
+      }
+    }
+    ```
+
+#### Webhook Reception
+*   **Endpoint:** `POST /api/v1/webhooks/payment`
+*   **Description:** Server-to-server webhook path. Listens for Gateway events like `charge.success` and automatically switches local DB order statuses to `SUCCESS`. Validates payloads strictly using HMAC `x-paystack-signature`.
+*   **Success Response (200 OK):**
+    ```json
+    {
+      "status": "success"
+    }
+    ```
+
+---
+
+### 5. Admin Utilities (MVP)
+
+Note: All admin endpoints necessitate a valid `x-admin-api-key` header to operate. The default development key is `default_admin_key_for_dev`.
+
+#### Create User
+*   **Endpoint:** `POST /api/v1/admin/users`
+*   **Headers:** `x-admin-api-key`
+*   **Request Body:** `{ "email", "fullName", "phone", "deliveryAddress" }`
+*   **Success Response (201 Created):** `{"status": "success", "data": { ...user }}`
+
+#### Create Card
+*   **Endpoint:** `POST /api/v1/admin/cards`
+*   **Headers:** `x-admin-api-key`
+*   **Request Body:** `{ "cardId", "userId", "cardType", "slug", "status", "subscription": { "planType" } }`
+*   **Success Response (201 Created):** `{"status": "success", "data": { ...card }}`
+
+#### Create Profile
+*   **Endpoint:** `POST /api/v1/admin/profiles`
+*   **Headers:** `x-admin-api-key`
+*   **Request Body:** `{ "userId", "cardId", "profileName", "isDefault", "theme", "identity", "contactInfo", "links", "isActive" }`
+*   **Success Response (201 Created):** `{"status": "success", "data": { ...profile }}`
+
+---
 
 Please reach out to the backend team if you encounter any unexpected behaviors or require new payload structures!

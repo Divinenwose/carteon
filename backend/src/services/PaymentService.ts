@@ -18,15 +18,22 @@ export class PaymentService {
         };
     }
 
-    verifyWebhookSignature(signature: string, payload: any): boolean {
+    verifyWebhookSignature(signature: string, rawBody: Buffer | string): boolean {
         const secret = process.env.PAYMENT_WEBHOOK_SECRET || '';
-        if (!secret) return false;
+        if (!secret || !signature || !rawBody) return false;
 
-        const hash = crypto
+        const expectedHash = crypto
             .createHmac('sha512', secret)
-            .update(JSON.stringify(payload))
+            .update(rawBody)
             .digest('hex');
 
-        return hash === signature;
+        const providedSignatureBuffer = Buffer.from(signature);
+        const expectedSignatureBuffer = Buffer.from(expectedHash);
+
+        if (providedSignatureBuffer.length !== expectedSignatureBuffer.length) {
+            return false;
+        }
+
+        return crypto.timingSafeEqual(providedSignatureBuffer, expectedSignatureBuffer);
     }
 }

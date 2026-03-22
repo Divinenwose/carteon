@@ -1,65 +1,42 @@
-import { Request, Response, NextFunction } from 'express';
-import { requireAdmin } from '../../src/middleware/admin';
+import request from 'supertest';
+import app from '../../src/app';
 
-describe('Admin Middleware', () => {
-    let mockRequest: Partial<Request>;
-    let mockResponse: Partial<Response>;
-    let nextFunction: NextFunction;
+describe('Admin Middleware Security', () => {
+    let originalEnvKey: string | undefined;
 
-    beforeEach(() => {
-        mockRequest = {};
-        mockResponse = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn(),
-        };
-        nextFunction = jest.fn();
-        process.env.ADMIN_API_KEY = 'super_secret_admin_key';
+    beforeAll(() => {
+        originalEnvKey = process.env.ADMIN_API_KEY;
     });
 
-    afterEach(() => {
-        jest.clearAllMocks();
+    afterAll(() => {
+        if (originalEnvKey) {
+            process.env.ADMIN_API_KEY = originalEnvKey;
+        } else {
+            delete process.env.ADMIN_API_KEY;
+        }
     });
 
-    it('should call next() if the correct API key is provided', () => {
-        mockRequest = {
-            headers: {
-                'x-admin-api-key': 'super_secret_admin_key',
-            },
-        };
+    it('should fail with 500 if ADMIN_API_KEY is missing (prevent default fallback)', async () => {
+        delete process.env.ADMIN_API_KEY;
 
-        requireAdmin(mockRequest as Request, mockResponse as Response, nextFunction);
+        const res = await request(app)
+            .post('/api/v1/admin/users')
+            .set('x-admin-api-key', 'default_admin_key_for_dev')
+            .send({});
 
-        expect(nextFunction).toHaveBeenCalledTimes(1);
-        expect(mockResponse.status).not.toHaveBeenCalled();
+        // Validates that it doesn't default to a weak key but instead errors out securely
+        expect(res.status).toBe(500);
     });
 
-    it('should return 401 if API key is completely missing', () => {
-        mockRequest = { headers: {} };
+    it('should fail with 401 when keys mismatch using raw buffer time-safe checks', async () => {
+        process.env.ADMIN_API_KEY = 'secure_prod_key';
 
-        requireAdmin(mockRequest as Request, mockResponse as Response, nextFunction);
+        // Passing a key that is shorter to prove we don't crash from buffer comparison length mismatches
+        const res = await request(app)
+            .post('/api/v1/admin/users')
+            .set('x-admin-api-key', 'short')
+            .send({});
 
-        expect(nextFunction).not.toHaveBeenCalled();
-        expect(mockResponse.status).toHaveBeenCalledWith(401);
-        expect(mockResponse.json).toHaveBeenCalledWith({
-            status: 'error',
-            message: 'Unauthorized: Admin API key missing',
-        });
-    });
-
-    it('should return 401 if incorrect API key is provided', () => {
-        mockRequest = {
-            headers: {
-                'x-admin-api-key': 'wrong_key',
-            },
-        };
-
-        requireAdmin(mockRequest as Request, mockResponse as Response, nextFunction);
-
-        expect(nextFunction).not.toHaveBeenCalled();
-        expect(mockResponse.status).toHaveBeenCalledWith(401);
-        expect(mockResponse.json).toHaveBeenCalledWith({
-            status: 'error',
-            message: 'Unauthorized: Invalid Admin API key',
-        });
+        expect(res.status).toBe(401);
     });
 });

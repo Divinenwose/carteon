@@ -35,12 +35,24 @@ export class OrderService {
     }
 
     async handleSuccessfulPayment(reference: string) {
-        const order = await Order.findOne({ transactionReference: reference });
-        if (order && order.paymentStatus !== 'SUCCESS') {
-            order.paymentStatus = 'SUCCESS';
-            await order.save();
+        // Atomic findAndUpdate operation eliminates the race condition
+        const order = await Order.findOneAndUpdate(
+            {
+                transactionReference: reference,
+                paymentStatus: { $ne: 'SUCCESS' } // Status is implicitly verified before update lock
+            },
+            {
+                $set: { paymentStatus: 'SUCCESS' }
+            },
+            { new: true } // Returns the modified document
+        );
+
+        if (order) {
+            // Processing logic happens EXACTLY once here.
             return order;
         }
+
+        // Returns null if the order doesn't exist, OR if it was already updated to SUCCESS by a concurrent request.
         return null;
     }
 }
