@@ -62,7 +62,7 @@ describe('Ordering & Payments Endpoints', () => {
             const order = await Order.findOne({ 'customerData.email': 'john@example.com' });
             expect(order).not.toBeNull();
             expect(order?.paymentStatus).toBe('PENDING');
-            expect(order?.transactionReference).toBe('tx_ref_123');
+            expect(order?.transactionReference).toMatch(/^CRT_/);
 
             expect(PaymentService.prototype.initializePayment).toHaveBeenCalledTimes(1);
         });

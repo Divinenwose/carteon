@@ -34,8 +34,10 @@ export class WebhookController {
         try {
             const signature = req.headers['x-paystack-signature'] as string;
 
-            // For testing consistency we might be sending objects directly, but effectively you need to stringify
-            const isValid = paymentService.verifyWebhookSignature(signature, req.body);
+            // Map the raw payload captured from express.json verification
+            const rawBody = (req as any).rawBody || JSON.stringify(req.body);
+
+            const isValid = paymentService.verifyWebhookSignature(signature, rawBody);
             if (!isValid) {
                 return res.status(401).json({ status: 'error', message: 'Invalid signature' });
             }

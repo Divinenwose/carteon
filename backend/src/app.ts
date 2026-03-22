@@ -11,7 +11,13 @@ const app = express();
 
 app.use(helmet());
 app.use(cors());
-app.use(express.json());
+app.use(express.json({
+    verify: (req: any, res, buf) => {
+        if (req.originalUrl && req.originalUrl.startsWith('/api/v1/webhooks')) {
+            req.rawBody = buf;
+        }
+    }
+}));
 
 app.use('/api/v1/profiles', profileRoutes);
 app.use('/api/v1/leads', leadRoutes);

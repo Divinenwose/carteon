@@ -11,7 +11,8 @@ export class AdminController {
             const user = await User.create(userData);
             return res.status(201).json({ status: 'success', data: user });
         } catch (error: any) {
-            return res.status(500).json({ status: 'error', message: error.message });
+            console.error('Core Logic Execution Fault (createUser):', error.message);
+            return res.status(500).json({ status: 'error', message: 'Internal server error while creating user' });
         }
     }
 
@@ -26,7 +27,8 @@ export class AdminController {
             const card = await Card.create(cardData);
             return res.status(201).json({ status: 'success', data: card });
         } catch (error: any) {
-            return res.status(500).json({ status: 'error', message: error.message });
+            console.error('Core Logic Execution Fault (createCard):', error.message);
+            return res.status(500).json({ status: 'error', message: 'Internal server error while creating card' });
         }
     }
 
@@ -41,7 +43,8 @@ export class AdminController {
             const profile = await Profile.create(profileData);
             return res.status(201).json({ status: 'success', data: profile });
         } catch (error: any) {
-            return res.status(500).json({ status: 'error', message: error.message });
+            console.error('Core Logic Execution Fault (createProfile):', error.message);
+            return res.status(500).json({ status: 'error', message: 'Internal server error while creating profile' });
         }
     }
 }
