@@ -60,12 +60,6 @@ const Checkout = () => {
 
             // Map variant to enum
             const cardType = location.state?.cardType;
-            console.log("DEBUG PRICE CHECK:", {
-                cardType,
-                frontendPrice: price,
-                quantity,
-                frontendTotal: price * quantity
-            });
 
             const payload = {
                 customerData: {
@@ -83,6 +77,7 @@ const Checkout = () => {
                 ],
                 totalAmount: Number(price * quantity),
                 paymentGateway: "PAYSTACK",
+                transactionReference: `CRT_${Date.now()}_${Math.floor(Math.random() * 10000)}`,
             };
 
             console.log("PAYLOAD:", payload);
