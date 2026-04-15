@@ -20,9 +20,9 @@ const Success = () => {
                     return;
                 }
                 const res = await axios.get(
-                    `https://carteon-iota.vercel.app/api/v1/orders/verify?reference=${reference}`
+                    `${import.meta.env.VITE_BACKEND_URL}api/v1/orders/verify?reference=${reference}`
                 );
-                
+
                 const fetchedOrder = res.data.data;
                 setOrder(fetchedOrder);
 

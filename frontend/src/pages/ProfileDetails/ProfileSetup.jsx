@@ -56,7 +56,7 @@ const ProfileSetup = () => {
             };
 
             const res = await axios.post(
-                "https://carteon-iota.vercel.app/api/v1/admin/profiles",
+                "http://localhost:3000/api/v1/admin/profiles",
                 payload,
                 {
                     headers: {

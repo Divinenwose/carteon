@@ -6,15 +6,12 @@ import Footer from "../../components/Footer/Footer";
 const Checkout = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
-
-    // Get selected card & quantity from CardDetails
     const selectedCard = location.state?.variant;
     const quantity = location.state?.quantity || 1;
     const cardType = location.state?.cardType || "DefaultType";
     const price = location.state?.price || selectedCard?.price || 50000;
 
-    // Redirect if no card data
+
     useEffect(() => {
         if (!selectedCard) {
             navigate("/");
@@ -87,8 +84,10 @@ const Checkout = () => {
 
             console.log("PAYLOAD:", payload);
 
-            const res = await axios.post("https://carteon-iota.vercel.app/api/v1/orders", payload);
-
+            const res = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}api/v1/orders`,
+                payload
+            );
             const paymentUrl = res.data?.data?.paymentUrl;
 
             if (!paymentUrl) {
