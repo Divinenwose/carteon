@@ -689,7 +689,7 @@ const LandingPage = () => {
                                     handleBuyNowClick({
                                         slug: "complete-package",
                                         name: "Complete Package",
-                                        basePrice: 50000,
+                                        basePrice: 60000,
                                         finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror']
                                     })
                                 }
