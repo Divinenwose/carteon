@@ -98,7 +98,7 @@ const LandingPage = () => {
 
                         <a
                             className="w-full sm:w-[236px] h-[50px] flex items-center justify-center gap-2 bg-[#252C46] rounded-[8px] py-[14px] px-[30px] font-inter font-medium text-[13.6px] text-white leading-[24px] tracking-[0%] text-center"
-                            href=""
+                            href="/#choose"
                         >
                             Get Your Carteon Card <img src={arrow} alt="" />
                         </a>
@@ -673,7 +673,7 @@ const LandingPage = () => {
                         </div>
                         <h5 className="font-inter font-bold text-[20.4px] text-[#1A1A1A]">Complete Package</h5>
                         <p className="font-inter text-[14px] text-[#6B7280]">Premium stainless steel NFC card with instant tap connectivity.</p>
-                        <p className="font-inter font-bold text-[30.6px] text-[#1A1A1A]">₦50,000</p>
+                        <p className="font-inter font-bold text-[30.6px] text-[#1A1A1A]">₦60,000</p>
                         <ul className="mt-[20px] flex flex-col gap-5">
                             <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />1 NFC Smart Card</li>
                             <li className="flex items-center gap-3 text-[14px]"><img src={ttick} />1 PVC QR Backup Card</li>
