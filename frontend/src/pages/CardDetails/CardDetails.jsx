@@ -94,14 +94,35 @@ const CardDetails = () => {
     };
 
     const handleBuyNow = () => {
+        const cardTypeMapping = {
+            "Smart Card": "SMART_ONLY",
+            "PVC QR Card": "PVC_QR_ONLY",
+            "Complete Package": "COMPLETE_PACKAGE",
+        };
+
+        const cardType =
+            cardTypeMapping[selectedVariant?.variantName] || "SMART_ONLY";
+
+        const colorMapping = {
+            gold: "gold",
+            silver: "silver",
+            black: "black",
+            default: "black",
+        };
+
+        const colorVariant =
+            colorMapping[selectedVariant?.color?.toLowerCase?.()] || "black";
+
         navigate("/checkout", {
             state: {
                 variant: selectedVariant,
                 quantity,
-                price: selectedVariant?.price || selectedProduct?.basePrice,
-                cardType: product?.cardType
-            }
+                price: selectedVariant?.price,
+                cardType,
+                colorVariant, // 🔥 ADD THIS
+            },
         });
+
         window.scrollTo({ top: 0, behavior: "auto" });
     };
 

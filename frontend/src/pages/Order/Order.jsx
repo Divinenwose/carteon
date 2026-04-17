@@ -72,9 +72,9 @@ const Checkout = () => {
                 },
                 items: [
                     {
-                        cardType, // already mapped correctly below
+                        cardType,
                         quantity: Number(quantity),
-                        colorVariant: selectedCard?.color || "black", // ✅ FIX HERE
+                        colorVariant: location.state?.colorVariant || "black",
                     },
                 ],
                 totalAmount: Number(price * quantity),
