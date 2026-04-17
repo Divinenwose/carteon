@@ -72,14 +72,12 @@ const Checkout = () => {
                 },
                 items: [
                     {
-                        cardType: cardType,
+                        cardType, // already mapped correctly below
                         quantity: Number(quantity),
-                        colorVariant: selectedCard?.variantName,
+                        colorVariant: selectedCard?.color || "black", // ✅ FIX HERE
                     },
                 ],
                 totalAmount: Number(price * quantity),
-                paymentGateway: "PAYSTACK",
-                transactionReference: `CRT_${Date.now()}_${Math.floor(Math.random() * 10000)}`,
             };
 
             console.log("PAYLOAD:", payload);
