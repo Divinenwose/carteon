@@ -68,7 +68,7 @@ const Checkout = () => {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone,
-                    address: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.zip}`,
+                    address: formData.address,
                 },
                 items: [
                     {
