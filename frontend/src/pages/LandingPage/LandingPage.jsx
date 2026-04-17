@@ -723,7 +723,7 @@ const LandingPage = () => {
                                 <td className="p-2 font-inter font-bold text-[14px] text-[#000]">Price</td>
                                 <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦50,000</td>
                                 <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦30,000</td>
-                                <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦50,000</td>
+                                <td className="text-center font-inter font-bold text-[14px] text-[#000]">₦60,000</td>
                             </tr>
 
                             <tr className="border-t border-[#E5E7EB]">
@@ -826,11 +826,11 @@ const LandingPage = () => {
                                             handleBuyNowClick({
                                                 slug: "complete-package",
                                                 name: "Complete Package",
-                                                basePrice: 50000,
+                                                basePrice: 60000,
                                                 finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror']
                                             })
                                         }
-                                        className="w-[70px] h-[50px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]"
+                                        className="w-[70px] h-[50px] ml-[10px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]"
                                     >
                                         Buy
                                     </button>
