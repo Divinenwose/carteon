@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../components/Footer/Footer";
 import upload from "../../assets/upload.png";
 
 const ProfileSetup = () => {
     const [step, setStep] = useState(1);
-
+    const navigate = useNavigate();
     const [platform, setPlatform] = useState("");
     const [url, setUrl] = useState("");
 
@@ -56,17 +57,19 @@ const ProfileSetup = () => {
             };
 
             const res = await axios.post(
-                "http://localhost:3000/api/v1/admin/profiles",
+                `${import.meta.env.VITE_BACKEND_URL}/api/v1/admin/profiles`,
                 payload,
                 {
                     headers: {
-                        "x-admin-api-key": "00dc4e203eb7413e57713272fcb9eee25b752dfbd9343b11028889350bbfe0f5",
+                        "x-admin-api-key": import.meta.env.VITE_ADMIN_API_KEY,
                     },
                 }
             );
 
-            alert("Profile Created Successfully");
             console.log(res.data);
+
+            navigate("/profile-success");
+
         } catch (err) {
             console.error(err);
             alert("Error creating profile");

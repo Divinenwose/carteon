@@ -7,7 +7,7 @@ import Checkout from "./pages/Order/Order.jsx";
 import Success from "./pages/Success/Success.jsx";
 import ProfileSetup from "./pages/ProfileDetails/ProfileSetup.jsx";
 import CardSetup from "./pages/CardSetup/CardSetup.jsx";
-
+import ProfileLive from "./pages/ProfileSuccess/ProfileSuccess.jsx";
 
 function Layout() {
   return (
@@ -29,6 +29,7 @@ function App() {
         <Route path="success" element={<Success />} />
         <Route path="/adaeze" element={<DigitalCard />} />
         <Route path="/card-setup" element={<CardSetup />} />
+        <Route path="/profile-success" element={<ProfileLive />} />
       </Route>
     </Routes>
   );
