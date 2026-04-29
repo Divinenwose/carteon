@@ -8,6 +8,8 @@ import Success from "./pages/Success/Success.jsx";
 import ProfileSetup from "./pages/ProfileDetails/ProfileSetup.jsx";
 import CardSetup from "./pages/CardSetup/CardSetup.jsx";
 import ProfileLive from "./pages/ProfileSuccess/ProfileSuccess.jsx";
+import Customer from "./pages/Customer/Customer.jsx";
+import Shipping from "./pages/Shipping/Shipping.jsx";
 
 function Layout() {
   return (
@@ -24,12 +26,14 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/cards/:slug" element={<CardDetails />} />
-        <Route path="/profiledetails" element={<ProfileSetup/>} />
+        <Route path="/profiledetails" element={<ProfileSetup />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="success" element={<Success />} />
         <Route path="/adaeze" element={<DigitalCard />} />
         <Route path="/card-setup" element={<CardSetup />} />
         <Route path="/profile-success" element={<ProfileLive />} />
+        <Route path="/customer-support" element={<Customer />} />
+        <Route path="/shipping-policy" element={<Shipping />} />
       </Route>
     </Routes>
   );

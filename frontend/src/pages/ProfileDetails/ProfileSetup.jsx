@@ -45,23 +45,37 @@ const ProfileSetup = () => {
     const handleSubmit = async () => {
         try {
             const payload = {
-                userId: profileData.userId,
-                cardId: profileData.cardId,
-                profileName: profileData.identity.fullName,
-                isDefault: profileData.isDefault,
-                theme: profileData.theme,
-                identity: profileData.identity,
-                contactInfo: profileData.contactInfo,
-                links: profileData.links,
-                isActive: profileData.isActive,
+                profileName: profileData.identity.fullName || "My Professional Profile",
+                theme: {
+                    backgroundColor: profileData.theme.color || "#ffffff",
+                    isCustomBrandTemplate: false,
+                },
+                identity: {
+                    fullName: profileData.identity.fullName,
+                    title: profileData.identity.title,
+                    company: "Carteon",
+                    bio: profileData.identity.bio,
+                    photoUrl: profileData.identity.photo,
+                },
+                contactInfo: {
+                    phone: profileData.contactInfo.phone,
+                    email: profileData.contactInfo.email,
+                },
+                links: profileData.links.map((link, index) => ({
+                    type: link.platform || "Other",
+                    url: link.url,
+                    label: link.platform || "Link",
+                    order: index + 1,
+                })),
             };
 
             const res = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/api/v1/admin/profiles`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/v1/profiles/setup`,
                 payload,
                 {
                     headers: {
-                        "x-admin-api-key": import.meta.env.VITE_ADMIN_API_KEY,
+                        "authorization": `Bearer ${localStorage.getItem("token") || ""}`,
+                        "Content-Type": "application/json",
                     },
                 }
             );

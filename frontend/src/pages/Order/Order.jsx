@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { PaystackButton } from "react-paystack";
 import Footer from "../../components/Footer/Footer";
 
 const Checkout = () => {
@@ -29,6 +30,7 @@ const Checkout = () => {
     });
 
     const [loading, setLoading] = useState(false);
+    const [paystackConfig, setPaystackConfig] = useState(null);
 
     // Build product summary
     const product = {
@@ -86,15 +88,31 @@ const Checkout = () => {
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/orders`,
                 payload
             );
-            const paymentUrl = res.data?.data?.paymentUrl;
+            const paymentData = res.data?.data;
 
-            if (!paymentUrl) {
+            if (!paymentData || !paymentData.reference) {
                 alert("Payment initialization failed");
                 return;
             }
 
-            // Redirect to payment gateway
-            window.location.href = paymentUrl;
+            // Configure Paystack modal
+            setPaystackConfig({
+                reference: paymentData.reference,
+                email: formData.email,
+                amount: paymentData.totalAmount * 100, // Paystack expects amount in kobo
+                publicKey: paymentData.paystackPublicKey || import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
+                firstname: formData.name.split(' ')[0],
+                lastname: formData.name.split(' ').slice(1).join(' ') || '',
+                phone: formData.phone,
+                onSuccess: (reference) => {
+                    console.log("Payment successful:", reference);
+                    navigate(`/success?reference=${reference.reference}`);
+                },
+                onClose: () => {
+                    console.log("Payment modal closed");
+                    setPaystackConfig(null);
+                },
+            });
 
         } catch (error) {
             console.error("Payment error:", error?.response?.data || error.message);
@@ -173,13 +191,21 @@ const Checkout = () => {
                         </span>
                     </div>
 
-                    <button
-                        onClick={handleSubmit}
-                        disabled={loading}
-                        className="mt-6 sm:mt-8 md:mt-10 w-full h-[48px] sm:h-[52px] cursor-pointer bg-[#0A0A0A] rounded-[12px] font-Inter font-semibold text-[12px] sm:text-[11.9px] leading-[20px] text-white"
-                    >
-                        {loading ? "Processing..." : "Complete Secure Payment"}
-                    </button>
+                    {paystackConfig ? (
+                        <PaystackButton
+                            {...paystackConfig}
+                            className="mt-6 sm:mt-8 md:mt-10 w-full h-[48px] sm:h-[52px] cursor-pointer bg-[#0A0A0A] rounded-[12px] font-Inter font-semibold text-[12px] sm:text-[11.9px] leading-[20px] text-white"
+                            text="Pay with Paystack"
+                        />
+                    ) : (
+                        <button
+                            onClick={handleSubmit}
+                            disabled={loading}
+                            className="mt-6 sm:mt-8 md:mt-10 w-full h-[48px] sm:h-[52px] cursor-pointer bg-[#0A0A0A] rounded-[12px] font-Inter font-semibold text-[12px] sm:text-[11.9px] leading-[20px] text-white"
+                        >
+                            {loading ? "Processing..." : "Complete Secure Payment"}
+                        </button>
+                    )}
                 </div>
             </div>
 
