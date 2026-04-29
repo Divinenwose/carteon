@@ -140,7 +140,7 @@ const Success = () => {
                 {quantity === 1 ? (
                     <button
                         onClick={() => navigate("/profiledetails")}
-                        className="w-full max-w-[576px] h-[56px] bg-[#0F1419] mt-8 rounded-[8px] text-white"
+                        className="w-full max-w-[576px] h-[56px] bg-[#0F1419] cursor-pointer mt-8 rounded-[8px] text-white"
                     >
                         Set Up My Profile
                     </button>
