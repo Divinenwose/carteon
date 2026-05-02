@@ -58,7 +58,7 @@ const Footer = () => {
                     <div className="flex flex-col w-full sm:w-1/2 lg:w-auto min-w-[120px]">
                         <h4 className="font-inter font-normal text-[18px] leading-[28px] tracking-[0px] text-white">Support</h4>
                         <ul className="mt-[10px] flex flex-col gap-4">
-                            <li><a href="#" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Help Center</a></li>
+                            <li><a href="/help-center" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Help Center</a></li>
                             <li><a href="/customer-support" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Contact Support</a></li>
                             <li><a href="#" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Order Status</a></li>
                         </ul>

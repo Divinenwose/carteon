@@ -10,6 +10,7 @@ import CardSetup from "./pages/CardSetup/CardSetup.jsx";
 import ProfileLive from "./pages/ProfileSuccess/ProfileSuccess.jsx";
 import Customer from "./pages/Customer/Customer.jsx";
 import Shipping from "./pages/Shipping/Shipping.jsx";
+import Help from "./pages/Help/Help.jsx";
 
 function Layout() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/profile-success" element={<ProfileLive />} />
         <Route path="/customer-support" element={<Customer />} />
         <Route path="/shipping-policy" element={<Shipping />} />
+        <Route path="/help-center" element={<Help />} />
       </Route>
     </Routes>
   );
