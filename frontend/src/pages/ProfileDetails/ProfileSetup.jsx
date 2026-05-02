@@ -68,11 +68,11 @@ const ProfileSetup = () => {
             };
 
             const res = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/api/v1/profiles/setup`,
+                `${import.meta.env.VITE_BACKEND_URL}api/v1/profiles/setup`,
                 payload,
                 {
                     headers: {
-                        "authorization": `Bearer ${localStorage.getItem("token") || ""}`,
+                        //* "authorization": `Bearer ${localStorage.getItem("token") || ""}`, *//
                         "Content-Type": "application/json",
                     },
                 }
