@@ -29,7 +29,6 @@ const Checkout = () => {
     });
 
     const [loading, setLoading] = useState(false);
-    const [paystackConfig, setPaystackConfig] = useState(null);
 
     // Build product summary
     const product = {
@@ -87,31 +86,14 @@ const Checkout = () => {
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/orders`,
                 payload
             );
+            
+            // Redirect to success page with order reference
             const paymentData = res.data?.data;
-
-            if (!paymentData || !paymentData.reference) {
+            if (paymentData?.reference) {
+                navigate(`/success?reference=${paymentData.reference}`);
+            } else {
                 alert("Payment initialization failed");
-                return;
             }
-
-            // Configure Paystack modal
-            setPaystackConfig({
-                reference: paymentData.reference,
-                email: formData.email,
-                amount: paymentData.totalAmount * 100, // Paystack expects amount in kobo
-                publicKey: paymentData.paystackPublicKey || import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-                firstname: formData.name.split(' ')[0],
-                lastname: formData.name.split(' ').slice(1).join(' ') || '',
-                phone: formData.phone,
-                onSuccess: (reference) => {
-                    console.log("Payment successful:", reference);
-                    navigate(`/success?reference=${reference.reference}`);
-                },
-                onClose: () => {
-                    console.log("Payment modal closed");
-                    setPaystackConfig(null);
-                },
-            });
 
         } catch (error) {
             console.error("Payment error:", error?.response?.data || error.message);
