@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer.jsx";
 import mark1 from "../../assets/mark1.png";
 import tickk from "../../assets/tickk.png";
 import card2 from "../../assets/card2.png";

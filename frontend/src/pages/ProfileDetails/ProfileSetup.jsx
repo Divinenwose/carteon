@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer.jsx";
 import upload from "../../assets/upload.png";
 
 const ProfileSetup = () => {

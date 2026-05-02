@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { PaystackButton } from "react-paystack";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer.jsx";
 
 const Checkout = () => {
     const navigate = useNavigate();

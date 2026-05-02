@@ -1,4 +1,4 @@
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer.jsx";
 
 const Customer = () => {
     return (

@@ -2,7 +2,7 @@ import confetti from "../../assets/confetti.png";
 import direct from "../../assets/direct.png";
 import download from "../../assets/download.png";
 import copy from "../../assets/copy.png";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer.jsx";
 
 const ProfileLive = () => {
     return (

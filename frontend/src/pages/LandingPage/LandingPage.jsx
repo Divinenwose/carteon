@@ -36,7 +36,7 @@ import star from "../../assets/star.png";
 import mark from "../../assets/mark.png";
 import mark1 from "../../assets/mark1.png";
 import arrowright from "../../assets/arrow-right.png";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer.jsx";
 
 
 const faqData = [
