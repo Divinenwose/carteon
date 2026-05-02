@@ -51,7 +51,7 @@ const Footer = () => {
                         <ul className="mt-[10px] flex flex-col gap-4">
                             <li><a href="#feature" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Privacy Policy</a></li>
                             <li><a href="#pricing" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Terms of Service</a></li>
-                            <li><a href="/shipping-policy" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Shipping policy</a></li>
+                            <li><a href="/shipping-policy" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Shipping Policy</a></li>
                         </ul>
                     </div>
 
