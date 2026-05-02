@@ -64,8 +64,6 @@ const ProfileSetup = () => {
                 links: profileData.links.map((link, index) => ({
                     type: link.platform || "Other",
                     url: link.url,
-                    label: link.platform || "Link",
-                    order: index + 1,
                 })),
             };
 
