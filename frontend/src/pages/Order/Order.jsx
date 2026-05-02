@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { PaystackButton } from "react-paystack";
 import Footer from "../../components/Footer/Footer.jsx";
 
 const Checkout = () => {
@@ -191,21 +190,13 @@ const Checkout = () => {
                         </span>
                     </div>
 
-                    {paystackConfig ? (
-                        <PaystackButton
-                            {...paystackConfig}
-                            className="mt-6 sm:mt-8 md:mt-10 w-full h-[48px] sm:h-[52px] cursor-pointer bg-[#0A0A0A] rounded-[12px] font-Inter font-semibold text-[12px] sm:text-[11.9px] leading-[20px] text-white"
-                            text="Pay with Paystack"
-                        />
-                    ) : (
-                        <button
-                            onClick={handleSubmit}
-                            disabled={loading}
-                            className="mt-6 sm:mt-8 md:mt-10 w-full h-[48px] sm:h-[52px] cursor-pointer bg-[#0A0A0A] rounded-[12px] font-Inter font-semibold text-[12px] sm:text-[11.9px] leading-[20px] text-white"
-                        >
-                            {loading ? "Processing..." : "Complete Secure Payment"}
-                        </button>
-                    )}
+                    <button
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        className="mt-6 sm:mt-8 md:mt-10 w-full h-[48px] sm:h-[52px] cursor-pointer bg-[#0A0A0A] rounded-[12px] font-Inter font-semibold text-[12px] sm:text-[11.9px] leading-[20px] text-white"
+                    >
+                        {loading ? "Processing..." : "Complete Secure Payment"}
+                    </button>
                 </div>
             </div>
 
