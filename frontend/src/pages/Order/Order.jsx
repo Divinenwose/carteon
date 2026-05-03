@@ -9,13 +9,15 @@ const Checkout = () => {
     const selectedCard = location.state?.variant;
     const quantity = location.state?.quantity || 1;
     const cardType = location.state?.cardType || "DefaultType";
-    const price = location.state?.price || selectedCard?.price || 50000;
+    const price = selectedCard?.price || 50000;
 
 
 
     useEffect(() => {
-        if (!selectedCard) return;
-    }, [selectedCard]);
+        if (!selectedCard) {
+            navigate("/"); // or cart page
+        }
+    }, [selectedCard, navigate]);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -54,6 +56,9 @@ const Checkout = () => {
         try {
             setLoading(true);
 
+            const totalAmount =
+                Number(product.price) * Number(product.quantity);
+
             const payload = {
                 customerData: {
                     name: formData.name,
@@ -63,16 +68,16 @@ const Checkout = () => {
                 },
                 items: [
                     {
-                        cardType: cardType,
+                        cardType,
                         quantity: Number(quantity),
-                        colorVariant: location.state?.colorVariant || "black",
-                    }
+                        colorVariant: location.state?.colorVariant ?? "black",
+                    },
                 ],
-                totalAmount: product.price * product.quantity
+                totalAmount: Number(product.price) * Number(product.quantity) // temporary but will be validated server-side
             };
 
             const res = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/api/v1/orders`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/v1/orders/`,
                 payload
             );
 
@@ -80,7 +85,15 @@ const Checkout = () => {
 
             console.log("🔍 FULL RESPONSE:", responseData);
 
-            const paymentUrl = responseData.paymentUrl;
+            const paymentUrl =
+                responseData.authorizationUrl || responseData.paymentUrl;
+
+            if (!paymentUrl) {
+                alert("Payment session failed");
+                return;
+            }
+
+            window.location.href = paymentUrl;
             const reference = responseData.reference;
 
             // store reference for success page

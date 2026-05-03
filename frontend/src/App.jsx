@@ -11,6 +11,8 @@ import ProfileLive from "./pages/ProfileSuccess/ProfileSuccess.jsx";
 import Customer from "./pages/Customer/Customer.jsx";
 import Shipping from "./pages/Shipping/Shipping.jsx";
 import Help from "./pages/Help/Help.jsx";
+import Terms from "./pages/Terms/Terms.jsx";
+import Privacy from "./pages/Privacy/Privacy.jsx";
 
 function Layout() {
   return (
@@ -36,6 +38,8 @@ function App() {
         <Route path="/customer-support" element={<Customer />} />
         <Route path="/shipping-policy" element={<Shipping />} />
         <Route path="/help-center" element={<Help />} />
+        <Route path="/terms-conditions" element={<Terms />} />
+        <Route path="/privacy-policy" element={<Privacy />} />
       </Route>
     </Routes>
   );

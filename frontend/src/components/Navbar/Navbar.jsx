@@ -32,10 +32,17 @@ const Navbar = () => {
                 <li><a href="/#faq" className="font-outfit font-normal text-[18px] text-[#252C46]">FAQ</a></li>
             </ul>
 
-            <div className="hidden sm:flex items-center">
-                <a href="/#choose" className="w-[190px] h-[48px] bg-[#252C46] rounded-[40px] py-[11px] px-[24px] font-outfit font-semibold text-[18px] text-white">
-                    Get Your Carteon
-                </a>
+            <div className="flex items-center gap-2">
+                <div className="hidden sm:flex items-center">
+                    <a href="/login" className="w-[129px] h-[48px] hover:bg-[#252C46] hover:text-white border-2 border-[#252C46] rounded-[40px] py-[8px] px-[29px] font-outfit font-bold text-[18px] text-[#252C46]">
+                        Sign in
+                    </a>
+                </div>
+                <div className="hidden sm:flex items-center">
+                    <a href="/#choose" className="w-[197px] h-[48px] bg-[#252C46] hover:border-2 border-[#252C46] hover:bg-white hover:text-[#252C46] rounded-[40px] py-[11px] px-[24px] font-outfit font-semibold text-[18px] text-white">
+                        Get Your Carteon
+                    </a>
+                </div>
             </div>
 
             <div className="sm:hidden">
@@ -50,9 +57,12 @@ const Navbar = () => {
             {menuOpen && (
                 <div className="absolute top-[80px] left-30 w-full bg-white flex flex-col pl-[18px] gap-6 py-6 sm:hidden shadow-lg">
                     <a href="/#features" onClick={() => setMenuOpen(false)} className="text-[#252C46] text-[18px]">Features</a>
-                    <a href="/#how-it-works" onClick={() => setMenuOpen(false)}  className="text-[#252C46] text-[18px]">How It Works</a>
+                    <a href="/#how-it-works" onClick={() => setMenuOpen(false)} className="text-[#252C46] text-[18px]">How It Works</a>
                     <a href="/#pricing" onClick={() => setMenuOpen(false)} className="text-[#252C46] text-[18px]">Pricing</a>
-                    <a href="/#faq" onClick={() => setMenuOpen(false)}  className="text-[#252C46] text-[18px]">FAQ</a>
+                    <a href="/#faq" onClick={() => setMenuOpen(false)} className="text-[#252C46] text-[18px]">FAQ</a>
+                    <a href="/login" onClick={() => setMenuOpen(false)} className="w-[129px] h-[48px] hover:bg-[#252C46] hover:text-white border-2 border-[#252C46] rounded-[40px] py-[6px] px-[29px] font-Outfit font-bold text-[20px] text-[#252C46]">
+                        Sign in
+                    </a>
                     <a
                         href="/#choose"
                         onClick={() => setMenuOpen(false)}
