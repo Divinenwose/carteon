@@ -12,11 +12,10 @@ const Checkout = () => {
     const price = location.state?.price || selectedCard?.price || 50000;
 
 
+
     useEffect(() => {
-        if (!selectedCard) {
-            navigate("/");
-        }
-    }, [selectedCard, navigate]);
+        if (!selectedCard) return;
+    }, [selectedCard]);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -46,13 +45,17 @@ const Checkout = () => {
         });
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (paymentReference) => {
+        console.log("🚀 handleSubmit called with paymentReference:", paymentReference);
+
         if (!formData.name || !formData.email || !formData.phone || !formData.address) {
+            console.log("❌ Form validation failed");
             alert("Please fill all required fields");
             return;
         }
 
         try {
+            console.log("📝 Starting order submission...");
             setLoading(true);
 
             // Map variant to enum
@@ -78,26 +81,72 @@ const Checkout = () => {
                     },
                 ],
                 totalAmount: Number(price * quantity),
+                paymentReference,
             };
 
-            console.log("PAYLOAD:", payload);
+            console.log("📦 Payload being sent:", payload);
 
             const res = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/orders`,
                 payload
             );
 
+            console.log("✅ API Response received:", res.data);
+            console.log("📊 Response status:", res.status);
+
             // Redirect to success page with order reference
             const paymentData = res.data?.data;
+            console.log("💳 Payment data from response:", paymentData);
+
             if (paymentData?.reference) {
-                navigate(`/success?reference=${paymentData.reference}`);
+                console.log("🎯 Navigating to success page with reference:", paymentReference);
+                console.log("📍 Navigation URL:", `/success?reference=${paymentReference}`);
+                navigate(`/success?reference=${paymentReference}`);
             } else {
+                console.log("❌ No reference found in response");
                 alert("Payment initialization failed");
             }
 
         } catch (error) {
-            console.error("Payment error:", error?.response?.data || error.message);
+            console.error("💥 Payment error:", error?.response?.data || error.message);
+            console.error("💥 Full error object:", error);
             alert(error?.response?.data?.message || "Something went wrong!");
+        } finally {
+            console.log("🏁 Setting loading to false");
+            setLoading(false);
+        }
+    };
+
+    const handlePayment = async () => {
+        if (!formData.name || !formData.email || !formData.phone || !formData.address) {
+            alert("Please fill all required fields");
+            return;
+        }
+
+        try {
+            setLoading(true);
+
+            const res = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}api/v1/payments/initialize`,
+                {
+                    email: formData.email,
+                    amount: product.price * product.quantity
+                }
+            );
+
+            const { authorizationUrl, reference } = res.data.data;
+
+            console.log("🔗 Redirecting to Paystack:", authorizationUrl);
+
+            // Save reference temporarily (important)
+            localStorage.setItem("paymentRef", reference);
+
+            // Redirect user to Paystack
+            window.location.href = authorizationUrl;
+
+        } catch (error) {
+            console.error(error);
+            alert("Payment initialization failed");
         } finally {
             setLoading(false);
         }
@@ -105,123 +154,78 @@ const Checkout = () => {
 
     return (
         <section className="w-full h-auto bg-white">
-            <div className="flex flex-col items-center justify-center py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-8">
-                <div className="w-full max-w-6xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                        {/* Left Column - Product Summary */}
-                        <div className="flex flex-col gap-6">
-                            <h2 className="font-Inter font-bold text-[24px] sm:text-[28px] md:text-[32px] leading-[32px] sm:leading-[36px] md:leading-[40px] tracking-[0%] text-[#1A1A1A]">
-                                Order Summary
-                            </h2>
-
-                            <div className="bg-[#F8F9FA] rounded-[16px] p-6 border border-[#E5E7EB]">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] bg-gray-200 rounded-[12px] flex items-center justify-center">
-                                        <span className="text-gray-500 text-sm">Card</span>
-                                    </div>
-                                    <div className="flex-1">
-                                        <h3 className="font-Inter font-semibold text-[16px] sm:text-[18px] leading-[24px] text-[#1A1A1A]">
-                                            {product.name}
-                                        </h3>
-                                        <p className="font-Inter text-[14px] sm:text-[16px] leading-[20px] text-[#666666]">
-                                            {product.variant} • Quantity: {product.quantity}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-3">
-                                    <div className="w-full flex justify-between">
-                                        <span className="font-Inter text-[13px] sm:text-[14px] leading-[20px] text-[#737373]">Subtotal</span>
-                                        <span className="font-Inter font-medium text-[13px] sm:text-[14px] leading-[20px] text-[#0A0A0A]">
-                                            ₦{product.price.toLocaleString()}
-                                        </span>
-                                    </div>
-
-                                    <div className="w-full flex justify-between border-t border-[#99A1AF6E] pt-5 pb-5 mt-2">
-                                        <span className="font-Inter text-[13px] sm:text-[14px] leading-[20px] text-[#737373]">Total</span>
-                                        <span className="font-Inter font-bold text-[18px] sm:text-[20px] leading-[32px] text-[#0A0A0A]">
-                                            ₦{(product.price * product.quantity).toLocaleString()}
-                                        </span>
-                                    </div>
-                                </div>
+            <div className="px-4 pt-26 sm:px-10 md:px-25 pt-10 sm:pt-20 md:pt-30">
+                <h2 className="font-Inter font-semibold text-[24px] sm:text-[28px] md:text-[32px] leading-[120%] text-black mb-6 sm:mb-8 md:mb-10">
+                    Checkout
+                </h2>
+            </div>
+            <div className="max-w-6xl pb-10 sm:pb-16 md:pb-20 mx-4 md:mx-auto grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8 md:gap-10">
+                {/* Contact Form */}
+                <div>
+                    <h2 className="font-Inter font-medium text-[20px] sm:text-[22px] md:text-[24px] leading-[120%] text-[#1A1A1A] mb-4 sm:mb-5 md:mb-6">
+                        Contact Information
+                    </h2>
+                    <div className="space-y-4 sm:space-y-5">
+                        {["name", "email", "phone", "address", "city", "state", "zip"].map((field) => (
+                            <div key={field} className="flex flex-col gap-2 sm:gap-3">
+                                <label className="font-Inter font-normal text-[14px] sm:text-[15px] leading-[120%] text-[#1A1A1A]">
+                                    {field.charAt(0).toUpperCase() + field.slice(1).replace("_", " ")}
+                                </label>
+                                <input
+                                    type={field === "email" ? "email" : "text"}
+                                    name={field}
+                                    placeholder={field === "zip" ? "10001" : `Enter your ${field}`}
+                                    value={formData[field]}
+                                    onChange={handleChange}
+                                    className="w-full h-[45px] sm:h-[50px] px-3 sm:px-4 rounded-lg bg-gray-100 outline-none"
+                                />
                             </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Order Summary */}
+                <div className="bg-white h-auto p-4 sm:p-6 md:p-6 rounded-xl shadow">
+                    <h3 className="font-Inter font-semibold text-[14px] sm:text-[15.3px] leading-[28px] text-[#0A0A0A] mb-3 sm:mb-4">
+                        Order Summary
+                    </h3>
+
+                    <div className="flex flex-col gap-3 sm:gap-4">
+                        <div className="flex justify-between">
+                            <span className="font-Inter text-[13px] sm:text-[14px] leading-[20px] text-[#737373]">Product</span>
+                            <span className="font-Inter font-medium text-[13px] sm:text-[14px] leading-[20px] text-[#0A0A0A]">{product.name}</span>
                         </div>
-
-                        {/* Right Column - Customer Information */}
-                        <div className="flex flex-col gap-6">
-                            <h2 className="font-Inter font-bold text-[24px] sm:text-[28px] md:text-[32px] leading-[32px] sm:leading-[36px] md:leading-[40px] tracking-[0%] text-[#1A1A1A]">
-                                Customer Information
-                            </h2>
-
-                            <div className="bg-[#F8F9FA] rounded-[16px] p-6 border border-[#E5E7EB]">
-                                <div className="space-y-4">
-                                    <div className="flex flex-col gap-2">
-                                        <label htmlFor="name" className="font-Inter font-medium text-[14px] leading-[20px] tracking-[0px] text-[#374151]">Full Name</label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            className="w-full h-[48px] px-4 border border-[#D1D5DB] rounded-[8px] font-Inter text-[14px] leading-[20px] focus:outline-none focus:ring-2 focus:ring-[#252C46] focus:border-transparent"
-                                            placeholder="Enter your full name"
-                                            required
-                                        />
-                                    </div>
-
-                                    <div className="flex flex-col gap-2">
-                                        <label htmlFor="email" className="font-Inter font-medium text-[14px] leading-[20px] tracking-[0px] text-[#374151]">Email Address</label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            className="w-full h-[48px] px-4 border border-[#D1D5DB] rounded-[8px] font-Inter text-[14px] leading-[20px] focus:outline-none focus:ring-2 focus:ring-[#252C46] focus:border-transparent"
-                                            placeholder="Enter your email address"
-                                            required
-                                        />
-                                    </div>
-
-                                    <div className="flex flex-col gap-2">
-                                        <label htmlFor="phone" className="font-Inter font-medium text-[14px] leading-[20px] tracking-[0px] text-[#374151]">Phone Number</label>
-                                        <input
-                                            type="tel"
-                                            id="phone"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                            className="w-full h-[48px] px-4 border border-[#D1D5DB] rounded-[8px] font-Inter text-[14px] leading-[20px] focus:outline-none focus:ring-2 focus:ring-[#252C46] focus:border-transparent"
-                                            placeholder="Enter your phone number"
-                                            required
-                                        />
-                                    </div>
-
-                                    <div className="flex flex-col gap-2">
-                                        <label htmlFor="address" className="font-Inter font-medium text-[14px] leading-[20px] tracking-[0px] text-[#374151]">Delivery Address</label>
-                                        <textarea
-                                            id="address"
-                                            name="address"
-                                            value={formData.address}
-                                            onChange={handleChange}
-                                            rows={3}
-                                            className="w-full px-4 border border-[#D1D5DB] rounded-[8px] font-Inter text-[14px] leading-[20px] focus:outline-none focus:ring-2 focus:ring-[#252C46] focus:border-transparent resize-none"
-                                            placeholder="Enter your delivery address"
-                                            required
-                                        />
-                                    </div>
-
-                                    <button
-                                        onClick={handleSubmit}
-                                        disabled={loading}
-                                        className="w-full h-[48px] bg-[#252C46] text-white rounded-[8px] font-Inter font-semibold text-[14px] leading-[20px] hover:bg-[#1E293B] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                                    >
-                                        {loading ? "Processing..." : "Complete Secure Payment"}
-                                    </button>
-                                </div>
-                            </div>
+                        <div className="flex justify-between">
+                            <span className="font-Inter text-[13px] sm:text-[14px] leading-[20px] text-[#737373]">Variant</span>
+                            <span className="font-Inter font-medium text-[13px] sm:text-[14px] leading-[20px] text-[#0A0A0A]">{product.variant}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="font-Inter text-[13px] sm:text-[14px] leading-[20px] text-[#737373]">Quantity</span>
+                            <span className="font-Inter font-medium text-[13px] sm:text-[14px] leading-[20px] text-[#0A0A0A]">{product.quantity}</span>
                         </div>
                     </div>
+
+                    <div className="w-full flex justify-between border-t border-[#99A1AF6E] pt-5 pb-5 mt-6">
+                        <span className="font-Inter text-[13px] sm:text-[14px] leading-[20px] text-[#737373]">Subtotal</span>
+                        <span className="font-Inter font-medium text-[13px] sm:text-[14px] leading-[20px] text-[#0A0A0A]">
+                            ₦{product.price.toLocaleString()}
+                        </span>
+                    </div>
+
+                    <div className="w-full flex justify-between border-t border-[#99A1AF6E] pt-5 pb-5 mt-2">
+                        <span className="font-Inter text-[13px] sm:text-[14px] leading-[20px] text-[#737373]">Total</span>
+                        <span className="font-Inter font-bold text-[18px] sm:text-[20px] leading-[32px] text-[#0A0A0A]">
+                            ₦{(product.price * product.quantity).toLocaleString()}
+                        </span>
+                    </div>
+
+                    <button
+                        onClick={handlePayment}
+                        disabled={loading}
+                        className="mt-6 sm:mt-8 md:mt-10 w-full h-[48px] sm:h-[52px] cursor-pointer bg-[#0A0A0A] rounded-[12px] font-Inter font-semibold text-[12px] sm:text-[11.9px] leading-[20px] text-white"
+                    >
+                        {loading ? "Processing..." : "Complete Secure Payment"}
+                    </button>
                 </div>
             </div>
             <Footer />
