@@ -45,26 +45,14 @@ const Checkout = () => {
         });
     };
 
-    const handleSubmit = async (paymentReference) => {
-        console.log("🚀 handleSubmit called with paymentReference:", paymentReference);
-
+    const handlePayment = async () => {
         if (!formData.name || !formData.email || !formData.phone || !formData.address) {
-            console.log("❌ Form validation failed");
             alert("Please fill all required fields");
             return;
         }
 
         try {
-            console.log("📝 Starting order submission...");
             setLoading(true);
-
-            // Map variant to enum
-            const cardTypeMapping = {
-                "Smart Card": "SMART_ONLY",
-                "PVC QR Card": "PVC_QR_ONLY",
-                "Complete Package": "COMPLETE_PACKAGE",
-            };
-            const cardType = cardTypeMapping[selectedCard?.variantName] || "SMART_ONLY";
 
             const payload = {
                 customerData: {
@@ -75,78 +63,35 @@ const Checkout = () => {
                 },
                 items: [
                     {
-                        cardType,
+                        cardType: cardType,
                         quantity: Number(quantity),
                         colorVariant: location.state?.colorVariant || "black",
-                    },
+                    }
                 ],
-                totalAmount: Number(price * quantity),
-                paymentReference,
+                totalAmount: product.price * product.quantity
             };
 
-            console.log("📦 Payload being sent:", payload);
-
             const res = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}api/v1/orders`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/v1/orders`,
                 payload
             );
 
-            console.log("✅ API Response received:", res.data);
-            console.log("📊 Response status:", res.status);
+            const responseData = res.data?.data || res.data;
 
-            // Redirect to success page with order reference
-            const paymentData = res.data?.data;
-            console.log("💳 Payment data from response:", paymentData);
+            console.log("🔍 FULL RESPONSE:", responseData);
 
-            if (paymentData?.reference) {
-                console.log("🎯 Navigating to success page with reference:", paymentReference);
-                console.log("📍 Navigation URL:", `/success?reference=${paymentReference}`);
-                navigate(`/success?reference=${paymentReference}`);
-            } else {
-                console.log("❌ No reference found in response");
-                alert("Payment initialization failed");
-            }
+            const paymentUrl = responseData.paymentUrl;
+            const reference = responseData.reference;
 
-        } catch (error) {
-            console.error("💥 Payment error:", error?.response?.data || error.message);
-            console.error("💥 Full error object:", error);
-            alert(error?.response?.data?.message || "Something went wrong!");
-        } finally {
-            console.log("🏁 Setting loading to false");
-            setLoading(false);
-        }
-    };
-
-    const handlePayment = async () => {
-        if (!formData.name || !formData.email || !formData.phone || !formData.address) {
-            alert("Please fill all required fields");
-            return;
-        }
-
-        try {
-            setLoading(true);
-
-            const res = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}api/v1/payments/initialize`,
-                {
-                    email: formData.email,
-                    amount: product.price * product.quantity
-                }
-            );
-
-            const { authorizationUrl, reference } = res.data.data;
-
-            console.log("🔗 Redirecting to Paystack:", authorizationUrl);
-
-            // Save reference temporarily (important)
+            // store reference for success page
             localStorage.setItem("paymentRef", reference);
 
-            // Redirect user to Paystack
-            window.location.href = authorizationUrl;
+            // redirect to Paystack
+            window.location.href = paymentUrl;
 
         } catch (error) {
             console.error(error);
-            alert("Payment initialization failed");
+            alert("Order initialization failed");
         } finally {
             setLoading(false);
         }

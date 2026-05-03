@@ -214,7 +214,7 @@ All public-facing API routes are prefixed with `/api/v1/`.
 #### Initialize Order
 *   **Endpoint:** `POST /api/v1/orders`
 *   **Description:** Creates a new order instance internally and initializes a payment session externally (Paystack).
-*   **Note on Redirects:** Once initialized, the backend automatically provides a `callback_url` to the payment provider. After a successful payment, the user will be redirected back to the frontend's payment success page (`FRONTEND_PAYMENT_SUCCESS_URL` env variable, typically `/payment/success`). Ensure this frontend page displays a profile setup link in case automatic redirection logic failed or if the user needs to set up later.
+*   **Note on Redirects:** Once initialized, the backend automatically provides a `callback_url` to the payment provider. After a successful payment, the user will be redirected back to the frontend's payment success page (`FRONTEND_PAYMENT_SUCCESS_URL` env variable, typically `/success`). Ensure this frontend page displays a profile setup link in case automatic redirection logic failed or if the user needs to set up later.
 *   **Request Body:**
     ```json
     {
