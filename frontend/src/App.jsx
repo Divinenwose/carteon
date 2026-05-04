@@ -13,6 +13,8 @@ import Shipping from "./pages/Shipping/Shipping.jsx";
 import Help from "./pages/Help/Help.jsx";
 import Terms from "./pages/Terms/Terms.jsx";
 import Privacy from "./pages/Privacy/Privacy.jsx";
+import Login from "./pages/Login/Login.jsx";
+import Signup from "./pages/Signup/Signup.jsx";
 
 function Layout() {
   return (
@@ -26,6 +28,8 @@ function Layout() {
 function App() {
   return (
     <Routes>
+
+      {/* Routes WITH Navbar */}
       <Route element={<Layout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/cards/:slug" element={<CardDetails />} />
@@ -41,6 +45,11 @@ function App() {
         <Route path="/terms-conditions" element={<Terms />} />
         <Route path="/privacy-policy" element={<Privacy />} />
       </Route>
+
+      {/* Route WITHOUT Navbar */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup/>} />
+
     </Routes>
   );
 }

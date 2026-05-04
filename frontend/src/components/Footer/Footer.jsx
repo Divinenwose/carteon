@@ -49,7 +49,7 @@ const Footer = () => {
                     <div className="flex flex-col w-full sm:w-1/2 lg:w-auto min-w-[120px]">
                         <h4 className="font-inter font-normal text-[18px] leading-[28px] tracking-[0px] text-white">Legal</h4>
                         <ul className="mt-[10px] flex flex-col gap-4">
-                            <li><a href="#feature" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Privacy Policy</a></li>
+                            <li><a href="/privacy-policy" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Privacy Policy</a></li>
                             <li><a href="/terms-conditions" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Terms of Service</a></li>
                             <li><a href="/shipping-policy" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Shipping Policy</a></li>
                         </ul>
@@ -70,7 +70,7 @@ const Footer = () => {
                     © {new Date().getFullYear()} Carteon. All rights reserved.
                 </p>
                 <div className="flex flex-wrap items-center gap-4">
-                    <a href="#" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Privacy</a>
+                    <a href="/privacy-policy" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Privacy</a>
                     <a href="/terms-conditions" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Terms</a>
                     <a href="#" className="font-inter font-normal text-[14px] leading-[20px] tracking-[0px] text-[#99A1AF]">Cookies</a>
                 </div>
