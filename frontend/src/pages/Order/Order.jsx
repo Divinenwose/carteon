@@ -77,7 +77,7 @@ const Checkout = () => {
             };
 
             const res = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/api/v1/orders/`,
+                `${import.meta.env.VITE_BACKEND_URL}api/v1/orders/`,
                 payload
             );
 
