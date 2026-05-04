@@ -22,23 +22,23 @@ const Privacy = () => {
                         <h4 className="font-Inter font-semibold text-[16px] text-[#1A1A1A] leading-[24px] tracking-[0%] mb-3">2. How We Use Your Data</h4>
                         <p className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">We use your information to:</p>
                         <ul className="list-disc pl-5 py-2">
-                            <li>Process and fulfil your order</li>
-                            <li>Create and manage your Carteon digital profile</li>
-                            <li>Link your NFC card to your unique profile URL</li>
-                            <li>Send order confirmations, updates, and shipping notifications</li>
-                            <li>Respond to your support enquiries</li>
-                            <li>Improve our website, products, and user experience</li>
-                            <li>Send marketing communications — only with your consent. You may opt out at any time.</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Process and fulfil your order</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Create and manage your Carteon digital profile</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Link your NFC card to your unique profile URL</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Send order confirmations, updates, and shipping notifications</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Respond to your support enquiries</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Improve our website, products, and user experience</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Send marketing communications — only with your consent. You may opt out at any time.</li>
                         </ul>
                     </div>
                     <div>
                         <h4 className="font-Inter font-semibold text-[16px] text-[#1A1A1A] leading-[24px] tracking-[0%] mb-3">3. Data Sharing</h4>
                         <p className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">We do not sell your personal data to any third party. We may share your data with:</p>
                         <ul className="list-disc pl-5 py-2">
-                            <li>Logistics partners - to process and deliver your order</li>
-                            <li>Payment processors (Paystack) - subject to their own privacy policies</li>
-                            <li>Analytics tools (e.g. Google Analytics) - in anonymised, aggregated form only</li>
-                            <li>Legal authorities - where required to comply with Nigerian law or a valid legal order</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Logistics partners - to process and deliver your order</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Payment processors (Paystack) - subject to their own privacy policies</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Analytics tools (e.g. Google Analytics) - in anonymised, aggregated form only</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Legal authorities - where required to comply with Nigerian law or a valid legal order</li>
                         </ul>
                     </div>
                     <div>
@@ -49,10 +49,10 @@ const Privacy = () => {
                         <h4 className="font-Inter font-semibold text-[16px] text-[#1A1A1A] leading-[24px] tracking-[0%] mb-3">5. Your Rights</h4>
                         <p className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">You have the right to:</p>
                         <ul className="list-disc pl-5 py-2">
-                            <li>Access the personal data we hold about you</li>
-                            <li>Request correction of any inaccurate information</li>
-                            <li>Request deletion of your data, subject to any legal obligations we must fulfil</li>
-                            <li>Withdraw consent to marketing communications at any time</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Access the personal data we hold about you</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Request correction of any inaccurate information</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Request deletion of your data, subject to any legal obligations we must fulfil</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Withdraw consent to marketing communications at any time</li>
                         </ul>
                         <p className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">To exercise any of these rights, email us at: <a href="mailto:support@carteon.co" className="font-Inter font-normal underline text-[14px] sm:text-[15px] md:text-[16px] text-[#252C46] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">support@carteon.co</a></p>
                     </div>

@@ -49,10 +49,10 @@ const Help = () => {
                         <h4 className="font-Inter font-semibold text-[16px] text-[#1A1A1A] leading-[24px] tracking-[0%] mb-3">Troubleshooting</h4>
                         <p className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]"> My NFC isn't working - what do I do? Try the following steps:</p>
                         <ol className="list-decimal pl-5 py-2">
-                            <li>Make sure NFC is enabled on your phone - go to Settings and search for NFC.</li>
-                            <li>Hold the card flat against the back of your phone near the top edge.</li>
-                            <li>Remove your phone case if it is thick or contains metal, as this can block the NFC signal.</li>
-                            <li>Try the QR code on the card as an alternative it works on any smartphone camera. If the issue persists, contact us at <a href="mailto:support@carteon.co" className="font-Inter font-normal underline text-[14px] sm:text-[15px] md:text-[16px] text-[#252C46] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">support@carteon.co</a> and we will resolve it within 2–3 business days.</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Make sure NFC is enabled on your phone - go to Settings and search for NFC.</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Hold the card flat against the back of your phone near the top edge.</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Remove your phone case if it is thick or contains metal, as this can block the NFC signal.</li>
+                            <li className="font-Inter font-normal text-[14px] sm:text-[15px] md:text-[16px] text-[#1A1A1A] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">Try the QR code on the card as an alternative it works on any smartphone camera. If the issue persists, contact us at <a href="mailto:support@carteon.co" className="font-Inter font-normal underline text-[14px] sm:text-[15px] md:text-[16px] text-[#252C46] leading-[22px] sm:leading-[23px] md:leading-[24px] tracking-[0%]">support@carteon.co</a> and we will resolve it within 2–3 business days.</li>
                         </ol>
                     </div>
                     <div>
