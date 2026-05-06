@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Minus, Plus } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import "swiper/css";
 import hero1 from "../../assets/hero1.png";
 import hero2 from "../../assets/hero2.png";
@@ -875,7 +875,7 @@ const LandingPage = () => {
                             { name: "Complete Package", desc: "Premium stainless steel NFC card with instant tap connectivity.", price: "₦60,000", priceUnit: "", slug: "complete-package", basePrice: 60000, finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror'] }
                         ];
                         const currentCard = cardData[i];
-                        
+
                         return (
                             <motion.div
                                 key={i}
@@ -1019,7 +1019,7 @@ const LandingPage = () => {
                                     ];
                                     return features[cardIndex].includes(featureName) ? "✅" : "❌";
                                 };
-                                
+
                                 return (
                                     <motion.tr
                                         key={i}
@@ -1518,17 +1518,21 @@ const LandingPage = () => {
                                 </motion.div>
                             </div>
 
-                            {active === index && (
-                                <motion.div
-                                    variants={fadeUp}
-                                    custom={index + 1}
-                                    className="mt-4"
-                                >
-                                    <p className="w-full sm:w-[90%] md:w-[929px] font-[Inter] font-normal text-[16px] sm:text-[18px] text-[#525252] leading-relaxed">
-                                        {faq.answer}
-                                    </p>
-                                </motion.div>
-                            )}
+                            <AnimatePresence>
+                                {active === index && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        className="mt-4 overflow-hidden"
+                                    >
+                                        <p className="w-full sm:w-[90%] md:w-[929px] font-[Inter] font-normal text-[16px] sm:text-[18px] text-[#525252] leading-relaxed">
+                                            {faq.answer}
+                                        </p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </motion.div>
                     ))}
                 </motion.div>
