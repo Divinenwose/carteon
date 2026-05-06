@@ -29,25 +29,23 @@ const Login = () => {
 
         setLoading(true);
         
-        // Debug: Log the payload being sent
-        console.log('Login attempt with:', {
-            email: form.email,
+        // Debug: Log the exact URL and payload
+        const loginUrl = `${import.meta.env.VITE_BACKEND_URL}api/v1/auth/login`;
+        const payload = {
+            email: form.email.trim(),
             password: form.password
-        });
+        };
+        
+        console.log('Login URL:', loginUrl);
+        console.log('Payload:', JSON.stringify(payload, null, 2));
         
         try {
-            const response = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}api/v1/auth/login`,
-                {
-                    email: form.email,
-                    password: form.password
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+            const response = await axios.post(loginUrl, payload, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 }
-            );
+            });
 
             // Store token in localStorage
             console.log('Login response:', response.data);
