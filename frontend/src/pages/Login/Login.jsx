@@ -29,6 +29,12 @@ const Login = () => {
 
         setLoading(true);
         
+        // Debug: Log the payload being sent
+        console.log('Login attempt with:', {
+            email: form.email,
+            password: form.password
+        });
+        
         try {
             const response = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/auth/login`,
@@ -44,6 +50,8 @@ const Login = () => {
             );
 
             // Store token in localStorage
+            console.log('Login response:', response.data);
+            
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
                 
@@ -54,10 +62,21 @@ const Login = () => {
                 
                 // Navigate to dashboard or profile
                 navigate('/profiledetails');
+            } else {
+                // Debug: Check what was returned instead of token
+                console.log('No token in response, got:', response.data);
+                alert('Login successful but no token received. Please contact support.');
             }
             
         } catch (error) {
             console.error('Login failed:', error);
+            
+            // Enhanced error logging
+            if (error.response) {
+                console.log('Error response data:', error.response.data);
+                console.log('Error status:', error.response.status);
+                console.log('Error headers:', error.response.headers);
+            }
             
             // Handle different error types
             if (error.response?.status === 401) {
