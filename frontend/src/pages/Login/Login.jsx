@@ -1,11 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         email: "",
         password: "",
         remember: false
     });
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -15,9 +19,57 @@ const Login = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(form);
+        
+        if (!form.email || !form.password) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        setLoading(true);
+        
+        try {
+            const response = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}api/v1/auth/login`,
+                {
+                    email: form.email,
+                    password: form.password
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            // Store token in localStorage
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token);
+                
+                // Store user info if needed
+                if (response.data.user) {
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                }
+                
+                // Navigate to dashboard or profile
+                navigate('/profiledetails');
+            }
+            
+        } catch (error) {
+            console.error('Login failed:', error);
+            
+            // Handle different error types
+            if (error.response?.status === 401) {
+                alert('Invalid email or password');
+            } else if (error.response?.status === 500) {
+                alert('Server error. Please try again later.');
+            } else {
+                alert('Login failed. Please check your connection and try again.');
+            }
+        } finally {
+            setLoading(false);
+        }
     };
 
     const isValid = form.email && form.password;
@@ -66,11 +118,11 @@ const Login = () => {
                     </div>
 
                     <button
-                        disabled={!isValid}
+                        disabled={!isValid || loading}
                         className={`w-full py-3 rounded-md text-white transition cursor-pointer
-                        ${isValid ? "bg-[#252C46]" : "bg-gray-300 cursor-not-allowed"}`}
+                        ${!isValid || loading ? "bg-gray-300 cursor-not-allowed" : "bg-[#252C46]"}`}
                     >
-                        Log in
+                        {loading ? 'Logging in...' : 'Log in'}
                     </button>
                 </form>
                 <div className="flex items-center my-5">
