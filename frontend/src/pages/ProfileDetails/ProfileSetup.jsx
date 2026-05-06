@@ -203,7 +203,7 @@ const ProfileSetup = () => {
                                                 onChange={async (e) => {
                                                     const file = e.target.files[0];
                                                     if (!file) return;
-                                                    
+
                                                     // Check file size
                                                     if (file.size > 5 * 1024 * 1024) {
                                                         alert("File is too large! Maximum size is 5MB.");
@@ -403,16 +403,23 @@ const ProfileSetup = () => {
                                         <label className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]">
                                             Platform
                                         </label>
-                                        <input
+                                        <select
                                             className="w-full h-auto bg-[#F3F3F5] rounded-[8px] pt-[4px] pb-[4px] px-[12px] border border-[#D4D4D4]"
-                                            placeholder="e.g., LinkedIn, Instagram, Portfolio"
                                             value={link.platform}
                                             onChange={(e) => {
                                                 const newLinks = [...profileData.links];
                                                 newLinks[index].platform = e.target.value;
                                                 setProfileData({ ...profileData, links: newLinks });
                                             }}
-                                        />
+                                        >
+                                            <option value="">Select platform</option>
+                                            <option value="LinkedIn">LinkedIn</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Twitter">Twitter</option>
+                                            <option value="Facebook">Facebook</option>
+                                            <option value="Portfolio">TikTok</option>
+                                            <option value="GitHub">GitHub</option>
+                                        </select>
 
                                         <label className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]">
                                             URL
