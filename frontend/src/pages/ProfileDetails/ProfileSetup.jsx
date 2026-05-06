@@ -38,11 +38,59 @@ const ProfileSetup = () => {
         isActive: true,
     });
 
+    const [uploading, setUploading] = useState(false);
+    const [uploadedImage, setUploadedImage] = useState(null);
+
     const next = () => setStep((prev) => prev + 1);
     const back = () => setStep((prev) => prev - 1);
 
+    // Image Upload Function
+    const uploadImage = async (file) => {
+        setUploading(true);
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}api/v1/upload/image`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${localStorage.getItem("token") || ""}`,
+                    },
+                }
+            );
+
+            if (response.data.status === 'success') {
+                const imageUrl = response.data.data.url;
+                setUploadedImage(imageUrl);
+                setProfileData({
+                    ...profileData,
+                    identity: {
+                        ...profileData.identity,
+                        photo: imageUrl,
+                    },
+                });
+                return imageUrl;
+            }
+        } catch (error) {
+            console.error('Image upload failed:', error);
+            alert('Failed to upload image. Please try again.');
+            return null;
+        } finally {
+            setUploading(false);
+        }
+    };
+
     // API CALL
     const handleSubmit = async () => {
+        // Prevent submission if image is still uploading
+        if (uploading) {
+            alert('Please wait for the image to finish uploading.');
+            return;
+        }
+
         try {
             const payload = {
                 profileName: profileData.identity.fullName || "My Professional Profile",
@@ -72,7 +120,6 @@ const ProfileSetup = () => {
                 payload,
                 {
                     headers: {
-                        //* "authorization": `Bearer ${localStorage.getItem("token") || ""}`, *//
                         "Content-Type": "application/json",
                     },
                 }
@@ -147,14 +194,17 @@ const ProfileSetup = () => {
                                     </div>
                                     <div>
                                         <label className="cursor-pointer flex items-center gap-2 font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040] w-[175px] py-3 px-6 h-[44px] bg-white border-t-2 border-[#D4D4D4] rounded-[10px] border-2 shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A]">
-                                            <img src={upload} alt="" /> Upload Photo
+                                            <img src={upload} alt="" /> {uploading ? 'Uploading...' : 'Upload Photo'}
                                             <input
                                                 type="file"
                                                 accept="image/*"
                                                 className="hidden"
-                                                onChange={(e) => {
+                                                disabled={uploading}
+                                                onChange={async (e) => {
                                                     const file = e.target.files[0];
                                                     if (!file) return;
+                                                    
+                                                    // Check file size
                                                     if (file.size > 5 * 1024 * 1024) {
                                                         alert("File is too large! Maximum size is 5MB.");
                                                         return;
@@ -167,14 +217,8 @@ const ProfileSetup = () => {
                                                         return;
                                                     }
 
-                                                    // Update preview and state
-                                                    setProfileData({
-                                                        ...profileData,
-                                                        identity: {
-                                                            ...profileData.identity,
-                                                            photo: URL.createObjectURL(file),
-                                                        },
-                                                    });
+                                                    // Upload to Cloudinary
+                                                    await uploadImage(file);
                                                 }}
                                             />
                                         </label>
