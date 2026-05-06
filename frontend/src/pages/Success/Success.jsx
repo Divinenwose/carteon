@@ -134,7 +134,7 @@ const Success = () => {
                 </div>
 
                 <p className="font-Inter mt-4 font-normal text-[12px] md:text-[14px] leading-[100%] text-[#525252] text-center">
-                    3-7 working days within Lagos, then 7-21 working days outside Nigeria
+                    2-4 working days within Lagos, 4-7 working days within nigeria and 7-21 working days outside Nigeria
                 </p>
 
                 {quantity === 1 ? (
