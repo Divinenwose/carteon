@@ -102,42 +102,15 @@ const Signup = () => {
         } catch (error) {
             console.error("Registration failed:", error);
 
-            let errorMessage =
-                "Registration failed. Please try again.";
+            console.log("STATUS:", error.response?.status);
+            console.log("HEADERS:", error.response?.headers);
+            console.log("DATA:", error.response?.data);
 
-            if (error.response) {
-                const errorData = error.response.data;
-
-                if (error.response.status === 400) {
-                    if (
-                        errorData?.message
-                            ?.toLowerCase()
-                            .includes("email already")
-                    ) {
-                        errorMessage =
-                            "This email is already registered.";
-                    } else {
-                        errorMessage =
-                            errorData?.message || errorMessage;
-                    }
-                } else if (error.response.status === 500) {
-                    errorMessage =
-                        "Server error. Please try again later.";
-                } else if (error.response.status === 429) {
-                    errorMessage =
-                        "Too many attempts. Please wait and try again.";
-                } else {
-                    errorMessage =
-                        errorData?.message || errorMessage;
-                }
-            } else if (error.request) {
-                errorMessage =
-                    "Network error. Please check your internet connection.";
-            } else {
-                errorMessage = error.message;
-            }
-
-            toast.error(errorMessage);
+            toast.error(
+                error.response?.data?.message ||
+                error.response?.data?.error ||
+                "Registration failed"
+            );
         } finally {
             setLoading(false);
         }
@@ -280,8 +253,8 @@ const Signup = () => {
                         type="submit"
                         disabled={!form.agree || loading}
                         className={`w-full py-3 rounded-md text-white font-medium transition-all duration-300 ${form.agree && !loading
-                                ? "bg-[#252C46] hover:bg-[#1E2338]"
-                                : "bg-gray-300 cursor-not-allowed"
+                            ? "bg-[#252C46] hover:bg-[#1E2338]"
+                            : "bg-gray-300 cursor-not-allowed"
                             }`}
                     >
                         {loading ? (
