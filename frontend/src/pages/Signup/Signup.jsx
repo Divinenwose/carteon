@@ -102,15 +102,23 @@ const Signup = () => {
         } catch (error) {
             console.error("Registration failed:", error);
 
-            console.log("STATUS:", error.response?.status);
-            console.log("HEADERS:", error.response?.headers);
-            console.log("DATA:", error.response?.data);
-
-            toast.error(
+            const errorMessage =
                 error.response?.data?.message ||
-                error.response?.data?.error ||
-                "Registration failed"
-            );
+                "Registration failed";
+
+            if (
+                errorMessage.toLowerCase().includes("email already")
+            ) {
+                toast.error("Email already registered");
+
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
+
+                return;
+            }
+
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
