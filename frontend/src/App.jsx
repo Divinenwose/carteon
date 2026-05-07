@@ -1,4 +1,6 @@
 import { Routes, Route, Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import CardDetails from "./pages/CardDetails/CardDetails.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import LandingPage from "./pages/LandingPage/LandingPage.jsx";
@@ -27,30 +29,39 @@ function Layout() {
 
 function App() {
   return (
-    <Routes>
+    <>
+      {/* Toast Notifications */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        theme="light"
+      />
 
-      {/* Routes WITH Navbar */}
-      <Route element={<Layout />}>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/cards/:slug" element={<CardDetails />} />
-        <Route path="/profiledetails" element={<ProfileSetup />} />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="success" element={<Success />} />
-        <Route path="/adaeze" element={<DigitalCard />} />
-        <Route path="/card-setup" element={<CardSetup />} />
-        <Route path="/profile-success" element={<ProfileLive />} />
-        <Route path="/customer-support" element={<Customer />} />
-        <Route path="/shipping-policy" element={<Shipping />} />
-        <Route path="/help-center" element={<Help />} />
-        <Route path="/terms-conditions" element={<Terms />} />
-        <Route path="/privacy-policy" element={<Privacy />} />
-      </Route>
+      <Routes>
 
-      {/* Route WITHOUT Navbar */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup/>} />
+        {/* Routes WITH Navbar */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/cards/:slug" element={<CardDetails />} />
+          <Route path="/profiledetails" element={<ProfileSetup />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/adaeze" element={<DigitalCard />} />
+          <Route path="/card-setup" element={<CardSetup />} />
+          <Route path="/profile-success" element={<ProfileLive />} />
+          <Route path="/customer-support" element={<Customer />} />
+          <Route path="/shipping-policy" element={<Shipping />} />
+          <Route path="/help-center" element={<Help />} />
+          <Route path="/terms-conditions" element={<Terms />} />
+          <Route path="/privacy-policy" element={<Privacy />} />
+        </Route>
 
-    </Routes>
+        {/* Routes WITHOUT Navbar */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+      </Routes>
+    </>
   );
 }
 
