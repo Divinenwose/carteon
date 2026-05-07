@@ -78,7 +78,6 @@ const Signup = () => {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
                     }
                 }
             );

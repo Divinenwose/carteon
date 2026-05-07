@@ -43,7 +43,6 @@ const Login = () => {
             const response = await axios.post(loginUrl, payload, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
                 }
             });
 
@@ -74,15 +73,40 @@ const Login = () => {
                 console.log('Error response data:', error.response.data);
                 console.log('Error status:', error.response.status);
                 console.log('Error headers:', error.response.headers);
+                console.log('Full error response:', JSON.stringify(error.response, null, 2));
             }
             
             // Handle different error types
             if (error.response?.status === 401) {
                 alert('Invalid email or password');
+            } else if (error.response?.status === 403) {
+                // 403 usually means forbidden access - could be unverified account
+                const errorData = error.response.data;
+                let errorMessage = 'Access denied. Your account may need verification.';
+                
+                if (errorData && errorData.message) {
+                    if (errorData.message.toLowerCase().includes('verify') || errorData.message.toLowerCase().includes('otp')) {
+                        errorMessage = 'Please verify your email first. Check your inbox for OTP verification.';
+                    } else if (errorData.message.toLowerCase().includes('blocked') || errorData.message.toLowerCase().includes('suspended')) {
+                        errorMessage = 'Account blocked or suspended. Please contact support.';
+                    } else {
+                        errorMessage = errorData.message;
+                    }
+                }
+                
+                alert(errorMessage);
             } else if (error.response?.status === 500) {
                 alert('Server error. Please try again later.');
+            } else if (error.response?.status === 429) {
+                alert('Too many login attempts. Please wait a moment and try again.');
             } else {
-                alert('Login failed. Please check your connection and try again.');
+                // Generic error with more details
+                const errorData = error.response?.data;
+                if (errorData && errorData.message) {
+                    alert(`Login failed: ${errorData.message}`);
+                } else {
+                    alert('Login failed. Please check your connection and try again.');
+                }
             }
         } finally {
             setLoading(false);
