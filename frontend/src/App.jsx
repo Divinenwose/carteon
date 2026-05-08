@@ -17,6 +17,7 @@ import Terms from "./pages/Terms/Terms.jsx";
 import Privacy from "./pages/Privacy/Privacy.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Signup from "./pages/Signup/Signup.jsx";
+import VerifyOtp from "./pages/VerifyEmail/VerifyEmail.jsx";
 
 function Layout() {
   return (
@@ -59,7 +60,7 @@ function App() {
         {/* Routes WITHOUT Navbar */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
+        <Route path="/verify-otp" element={<VerifyOtp />} />
       </Routes>
     </>
   );

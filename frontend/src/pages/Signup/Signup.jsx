@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const savedForm = sessionStorage.getItem("signupForm");
+
+        if (savedForm) {
+            setForm(JSON.parse(savedForm));
+        }
+    }, []);
 
     const [socialLoading, setSocialLoading] = useState({
         google: false,
@@ -23,19 +32,21 @@ const Signup = () => {
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
 
-        setForm({
+        const updatedForm = {
             ...form,
             [name]: type === "checkbox" ? checked : value,
-        });
+        };
+
+        setForm(updatedForm);
+
+        sessionStorage.setItem("signupForm", JSON.stringify(updatedForm));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!form.agree) {
-            toast.error(
-                "Please agree to the Terms of Service and Privacy Policy"
-            );
+            toast.error("Please agree to the Terms and Privacy Policy");
             return;
         }
 
@@ -45,7 +56,6 @@ const Signup = () => {
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
         if (!emailRegex.test(form.email)) {
             toast.error("Please enter a valid email address");
             return;
@@ -65,59 +75,43 @@ const Signup = () => {
                 password: form.password,
             };
 
-            console.log("Sending registration payload:", payload);
-
             const response = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/auth/register`,
                 payload,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
+                { headers: { "Content-Type": "application/json" } }
             );
 
-            console.log("Registration response:", response.data);
-
-            if (response.data.token) {
-                localStorage.setItem("token", response.data.token);
-            }
-
+            // SAVE USER DATA (optional)
             if (response.data.user) {
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(response.data.user)
-                );
+                localStorage.setItem("user", JSON.stringify(response.data.user));
             }
 
-            toast.success(
-                "Registration successful! Verify your OTP."
-            );
+            // IMPORTANT: CLEAR FORM ONLY ON SUCCESS
+            sessionStorage.removeItem("signupForm");
 
+            toast.success("Account created! Check your email for OTP.");
+
+            // ✔ ONLY SUCCESS ROUTE → OTP
             navigate("/verify-otp", {
-                state: {
-                    email: form.email,
-                },
+                state: { email: form.email }
             });
+
         } catch (error) {
-            console.error("Registration failed:", error);
-
             const errorMessage =
-                error.response?.data?.message ||
-                "Registration failed";
+                error.response?.data?.message || "Registration failed";
 
-            if (
-                errorMessage.toLowerCase().includes("email already")
-            ) {
-                toast.error("Email already registered");
+            // ✔ EMAIL EXISTS → LOGIN ONLY
+            if (errorMessage.toLowerCase().includes("email already")) {
+                toast.error("Email already exists. Redirecting to login...");
 
                 setTimeout(() => {
                     navigate("/login");
-                }, 2000);
+                }, 1500);
 
                 return;
             }
 
+            // ❌ ANY OTHER ERROR → STAY HERE
             toast.error(errorMessage);
         } finally {
             setLoading(false);
@@ -240,19 +234,19 @@ const Signup = () => {
 
                         <span>
                             I agree to Carteon’s{" "}
-                            <a
-                                href="/terms-conditions"
-                                className="text-[#252C46] underline font-medium"
+                            <span
+                                onClick={() => navigate("/terms-conditions")}
+                                className="text-[#252C46] underline font-medium cursor-pointer"
                             >
                                 Terms of Service
-                            </a>{" "}
+                            </span>{" "}
                             and{" "}
-                            <a
-                                href="/privacy-policy"
-                                className="text-[#252C46] underline font-medium"
+                            <span
+                                onClick={() => navigate("/privacy-policy")}
+                                className="text-[#252C46] underline font-medium cursor-pointer"
                             >
                                 Privacy Policy
-                            </a>
+                            </span>
                         </span>
                     </label>
 
