@@ -118,11 +118,11 @@ const Login = () => {
 
                 const message =
                     error.response?.data?.message ||
-                    "Please verify your email before logging in.";
+                    "Please kindly sign up and verify your email before logging in.";
 
                 toast.error(message);
 
-                navigate("/verify-otp", {
+                navigate("/signup", {
                     state: {
                         email: form.email
                     }
