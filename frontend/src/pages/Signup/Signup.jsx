@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -100,18 +101,18 @@ const Signup = () => {
             const errorMessage =
                 error.response?.data?.message || "Registration failed";
 
-            // ✔ EMAIL EXISTS → LOGIN ONLY
             if (errorMessage.toLowerCase().includes("email already")) {
-                toast.error("Email already exists. Redirecting to login...");
+                toast.error("Email already exists. Redirecting to OTP verification...");
 
                 setTimeout(() => {
-                    navigate("/login");
-                }, 1500);
+                    navigate("/verify-otp", {
+                        state: { email: form.email }
+                    });
+                }, 1200);
 
                 return;
             }
 
-            // ❌ ANY OTHER ERROR → STAY HERE
             toast.error(errorMessage);
         } finally {
             setLoading(false);
@@ -207,19 +208,50 @@ const Signup = () => {
                     </div>
 
                     {/* PASSWORD */}
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 relative">
                         <label className="font-Inter font-medium text-[16px] leading-[20px] text-[#1A1A1A]">
                             Password
                         </label>
 
-                        <input
-                            type="password"
-                            name="password"
-                            value={form.password}
-                            placeholder="Enter your password"
-                            onChange={handleChange}
-                            className="w-full h-[44px] bg-white rounded-[8px] border border-[#D9D9D9] p-[10px] outline-none"
-                        />
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                value={form.password}
+                                placeholder="Enter your password"
+                                onChange={handleChange}
+                                className="w-full h-[44px] bg-white rounded-[8px] border border-[#D9D9D9] p-[10px] pr-10 outline-none"
+                            />
+
+                            {/* Eye Toggle Button */}
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword((prev) => !prev)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+                            >
+                                {showPassword ? (
+                                    // eye off
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                    >
+                                        <path d="M3.98 8.223A10.477 10.477 0 002 12c2.4 5.5 7.2 9 10 9 1.2 0 2.8-.4 4.4-1.1l-1.5-1.5C13.9 18.8 12.9 19 12 19c-2.6 0-6.5-2.3-8.5-7 1-2.1 2.6-3.9 4.6-5.1l-1.1-1.1zM12 5c2.6 0 6.5 2.3 8.5 7-.4 1-1 2-1.8 3l1.5 1.5C21.1 15.2 22 13.7 22 12c-2.4-5.5-7.2-9-10-9-1 0-2.2.2-3.4.7l1.6 1.6C10.8 5.1 11.4 5 12 5zm0 3a4 4 0 014 4c0 .5-.1 1-.3 1.4l-5.1-5.1c.4-.2.9-.3 1.4-.3zm-4 4c0-.5.1-1 .3-1.4l5.1 5.1c-.4.2-.9.3-1.4.3a4 4 0 01-4-4z" />
+                                    </svg>
+                                ) : (
+                                    // eye on
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                    >
+                                        <path d="M12 5c-5 0-9.3 3.1-11 7 1.7 3.9 6 7 11 7s9.3-3.1 11-7c-1.7-3.9-6-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z" />
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
                     </div>
 
                     {/* TERMS */}
