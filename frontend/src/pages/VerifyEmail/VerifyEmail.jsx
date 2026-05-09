@@ -2,6 +2,9 @@ import { useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const VerifyOtp = () => {
     const navigate = useNavigate();
@@ -37,7 +40,7 @@ const VerifyOtp = () => {
         const code = otp.join("");
 
         if (code.length !== 6) {
-            alert("Please enter the complete OTP");
+            toast.error("Please enter the complete OTP");
             return;
         }
 
@@ -57,10 +60,11 @@ const VerifyOtp = () => {
 
             console.log("VERIFY RESPONSE:", response.data);
 
-            alert("Email verified successfully");
+            toast.success("Email verified successfully");
 
-            // redirect to login
-            navigate("/login");
+            setTimeout(() => {
+                navigate("/login");
+            }, 1200);
 
         } catch (error) {
             console.error("VERIFY ERROR:", error);
@@ -69,7 +73,7 @@ const VerifyOtp = () => {
                 error.response?.data?.message ||
                 "OTP verification failed";
 
-            alert(message);
+            toast.error(message);
         }
     };
 
@@ -118,8 +122,8 @@ const VerifyOtp = () => {
                     onClick={handleSubmit}
                     disabled={otp.join("").length !== 6}
                     className={`w-full py-3 rounded-md text-white font-medium transition text-sm sm:text-base ${otp.join("").length === 6
-                            ? "bg-[#252C46] hover:opacity-90 cursor-pointer"
-                            : "bg-gray-300 cursor-not-allowed"
+                        ? "bg-[#252C46] hover:opacity-90 cursor-pointer"
+                        : "bg-gray-300 cursor-not-allowed"
                         }`}
                 >
                     Verify Email
