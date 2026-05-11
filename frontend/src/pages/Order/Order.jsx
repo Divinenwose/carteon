@@ -78,7 +78,13 @@ const Checkout = () => {
 
             const res = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/orders/`,
-                payload
+                payload,
+                 {
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Authorization': `Bearer ${localStorage.getItem("token") || ""}`,
+                    },
+                }
             );
 
             const responseData = res.data?.data || res.data;
