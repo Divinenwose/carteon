@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../components/Footer/Footer.jsx";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
     const navigate = useNavigate();
@@ -14,8 +15,22 @@ const Checkout = () => {
 
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            toast.error("Please log in before checking out");
+
+            navigate("/login", {
+                state: {
+                    from: "/checkout",
+                },
+            });
+
+            return;
+        }
+
         if (!selectedCard) {
-            navigate("/"); // or cart page
+            navigate("/");
         }
     }, [selectedCard, navigate]);
 
@@ -79,7 +94,7 @@ const Checkout = () => {
             const res = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/orders/`,
                 payload,
-                 {
+                {
                     headers: {
                         "Content-Type": "application/json",
                         'Authorization': `Bearer ${localStorage.getItem("token") || ""}`,

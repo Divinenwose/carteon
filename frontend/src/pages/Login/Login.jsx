@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [form, setForm] = useState({
         email: "",
@@ -92,7 +93,7 @@ const Login = () => {
                 toast.success("Login successful");
 
                 setTimeout(() => {
-                    navigate("/profiledetails");
+                    navigate(location.state?.from || "");
                 }, 1500);
 
             } else {
