@@ -77,7 +77,7 @@ const CardSetup = () => {
                                     <button
                                         onClick={() => handleSetupClick(index)}
                                         disabled={isCompleted}
-                                        className={`px-4 py-2 rounded-md text-sm ${isCompleted
+                                        className={`px-4 py-2 cursor-pointer rounded-md text-sm ${isCompleted
                                                 ? "bg-green-500 text-white"
                                                 : "bg-[#0F1419] text-white"
                                             }`}

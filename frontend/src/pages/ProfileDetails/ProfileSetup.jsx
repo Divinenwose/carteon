@@ -47,8 +47,9 @@ const ProfileSetup = () => {
     // Image Upload Function
     const uploadImage = async (file) => {
         setUploading(true);
+
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append("file", file);
 
         try {
             const response = await axios.post(
@@ -56,28 +57,36 @@ const ProfileSetup = () => {
                 formData,
                 {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
-                        "Content-Type": "application/json",
-                        'Authorization': `Bearer ${localStorage.getItem("token") || ""}`,
+                        Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
                     },
                 }
             );
 
-            if (response.data.status === 'success') {
+            if (response.data.status === "success") {
                 const imageUrl = response.data.data.url;
+
                 setUploadedImage(imageUrl);
-                setProfileData({
-                    ...profileData,
+
+                setProfileData((prev) => ({
+                    ...prev,
                     identity: {
-                        ...profileData.identity,
+                        ...prev.identity,
                         photo: imageUrl,
                     },
-                });
+                }));
+
                 return imageUrl;
             }
         } catch (error) {
-            console.error('Image upload failed:', error);
-            alert('Failed to upload image. Please try again.');
+            console.error("Image upload failed:", error);
+
+            console.log(error.response?.data);
+
+            alert(
+                error.response?.data?.message ||
+                "Failed to upload image."
+            );
+
             return null;
         } finally {
             setUploading(false);
