@@ -9,13 +9,13 @@ import Footer from "../../components/Footer/Footer.jsx";
 const ProfileLive = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const profileSlug =
-        location.state?.slug ??
-        localStorage.getItem("profileSlug") ??
+    const profileIdentifier =
+        location.state?.identifier ??
+        localStorage.getItem("profileIdentifier") ??
         "";
 
-    const profileUrl = profileSlug
-        ? `${window.location.origin}/${profileSlug}`
+    const profileUrl = profileIdentifier
+        ? `${window.location.origin}/${profileIdentifier}`
         : "";
 
     useEffect(() => {

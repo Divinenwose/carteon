@@ -150,12 +150,18 @@ const ProfileSetup = () => {
 
             toast.success("Profile created successfully");
 
+            const identifier = res.data.data.cardId;
+
             setTimeout(() => {
-                localStorage.setItem("profileSlug", res.data.data.slug);
+
+                localStorage.setItem(
+                    "profileIdentifier",
+                    identifier
+                );
 
                 navigate("/profile-success", {
                     state: {
-                        slug: res.data.data.slug,
+                        identifier,
                     }
                 });
 
