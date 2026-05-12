@@ -10,7 +10,7 @@ const Checkout = () => {
     const selectedCard = location.state?.variant;
     const quantity = location.state?.quantity || 1;
     const cardType = location.state?.cardType || "DefaultType";
-    const price = selectedCard?.price || 50000;
+    const price = selectedCard?.basePrice || selectedCard?.price || 50000;
 
 
 

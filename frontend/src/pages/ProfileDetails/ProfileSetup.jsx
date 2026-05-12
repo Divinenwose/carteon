@@ -49,7 +49,7 @@ const ProfileSetup = () => {
         setUploading(true);
 
         const formData = new FormData();
-        formData.append("image", file);
+        formData.append("file", file);
 
         try {
             const response = await axios.post(
