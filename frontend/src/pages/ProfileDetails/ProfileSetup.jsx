@@ -93,9 +93,7 @@ const ProfileSetup = () => {
         }
     };
 
-    // API CALL
     const handleSubmit = async () => {
-        // Prevent submission if image is still uploading
         if (uploading) {
             alert('Please wait for the image to finish uploading.');
             return;
@@ -103,8 +101,8 @@ const ProfileSetup = () => {
 
         try {
             const payload = {
-                userId: profileData.userId,   // ✅ ADD
-                cardId: profileData.cardId,   // ✅ ADD
+                userId: profileData.userId,
+                cardId: profileData.cardId,
 
                 profileName:
                     profileData.identity.fullName || "My Professional Profile",
@@ -130,27 +128,31 @@ const ProfileSetup = () => {
                 links: profileData.links
                     .filter(link => link.platform && link.url)
                     .map(link => ({
-                        type: link.platform.toLowerCase(), // ✅ FIX ENUM ISSUE
+                        type: link.platform.toLowerCase(),
                         url: link.url,
                     })),
             };
+
+            // 👇 ADD THIS
+            console.log("🚀 PROFILE SETUP PAYLOAD:", payload);
+
             const res = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/profiles/setup`,
                 payload,
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        'Authorization': `Bearer ${localStorage.getItem("token") || ""}`,
+                        Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
                     },
                 }
             );
 
-            console.log(res.data);
+            console.log("✅ RESPONSE:", res.data);
 
             navigate("/profile-success");
 
         } catch (err) {
-            console.error(err);
+            console.error("❌ ERROR:", err.response?.data || err);
             alert("Error creating profile");
         }
     };
