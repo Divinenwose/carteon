@@ -18,8 +18,8 @@ const ProfileLive = () => {
     };
 
     const handleNextCardSetup = () => {
-        const reference = localStorage.getItem("reference");
-        const quantity = localStorage.getItem("quantity");
+        const reference = localStorage.setItem("reference", reference);
+        const quantity = localStorage.setItem("quantity", quantity);
 
         navigate("/card-setup", {
             state: { reference, quantity }

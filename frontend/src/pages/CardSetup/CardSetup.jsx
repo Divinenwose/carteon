@@ -6,19 +6,33 @@ const CardSetup = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const quantity = location.state?.quantity || Number(localStorage.getItem("quantity"));
+    const quantity = Number(
+        location.state?.quantity ||
+        localStorage.getItem("quantity") ||
+        0
+    );
     const cardType = location.state?.cardType || "Gold";
-    const reference = location.state?.reference;
+    const reference = location.state?.reference || localStorage.getItem("reference") || "";
 
     const [completedCards, setCompletedCards] = useState([]);
 
     useEffect(() => {
-        const saved = JSON.parse(localStorage.getItem(`completedCards_${reference}`)) || [];
+        if (!reference) return;
+
+        const saved = JSON.parse(
+            localStorage.getItem(`completedCards_${reference}`)
+        ) || [];
+
         setCompletedCards(saved);
     }, [reference]);
 
     useEffect(() => {
-        localStorage.setItem(`completedCards_${reference}`, JSON.stringify(completedCards));
+        if (!reference) return;
+
+        localStorage.setItem(
+            `completedCards_${reference}`,
+            JSON.stringify(completedCards)
+        );
     }, [completedCards, reference]);
 
     const handleSetupClick = (cardIndex) => {
@@ -26,6 +40,10 @@ const CardSetup = () => {
             state: { cardIndex, reference }
         });
     };
+
+    if (!quantity || quantity < 1) {
+        return null;
+    }
 
     return (
         <section >
@@ -50,7 +68,7 @@ const CardSetup = () => {
                         <div
                             className="h-2 bg-[#0F1419] rounded-full transition-all"
                             style={{
-                                width: `${(completedCards.length / quantity) * 100}%`
+                                width: `${quantity ? (completedCards.length / quantity) * 100 : 0}%`
                             }}
                         />
                     </div>
@@ -78,8 +96,8 @@ const CardSetup = () => {
                                         onClick={() => handleSetupClick(index)}
                                         disabled={isCompleted}
                                         className={`px-4 py-2 cursor-pointer rounded-md text-sm ${isCompleted
-                                                ? "bg-green-500 text-white"
-                                                : "bg-[#0F1419] text-white"
+                                            ? "bg-green-500 text-white"
+                                            : "bg-[#0F1419] text-white"
                                             }`}
                                     >
                                         {isCompleted ? "Completed" : "Set Up Profile"}
