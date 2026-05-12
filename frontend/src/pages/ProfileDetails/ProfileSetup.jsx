@@ -103,11 +103,17 @@ const ProfileSetup = () => {
 
         try {
             const payload = {
-                profileName: profileData.identity.fullName || "My Professional Profile",
+                userId: profileData.userId,   // ✅ ADD
+                cardId: profileData.cardId,   // ✅ ADD
+
+                profileName:
+                    profileData.identity.fullName || "My Professional Profile",
+
                 theme: {
                     backgroundColor: profileData.theme.color || "#ffffff",
                     isCustomBrandTemplate: false,
                 },
+
                 identity: {
                     fullName: profileData.identity.fullName,
                     title: profileData.identity.title,
@@ -115,16 +121,19 @@ const ProfileSetup = () => {
                     bio: profileData.identity.bio,
                     photoUrl: profileData.identity.photo,
                 },
+
                 contactInfo: {
                     phone: profileData.contactInfo.phone,
                     email: profileData.contactInfo.email,
                 },
-                links: profileData.links.map((link, index) => ({
-                    type: link.platform || "Other",
-                    url: link.url,
-                })),
-            };
 
+                links: profileData.links
+                    .filter(link => link.platform && link.url)
+                    .map(link => ({
+                        type: link.platform.toLowerCase(), // ✅ FIX ENUM ISSUE
+                        url: link.url,
+                    })),
+            };
             const res = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/profiles/setup`,
                 payload,
