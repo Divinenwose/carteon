@@ -146,9 +146,9 @@ const ProfileSetup = () => {
                 }
             );
 
-            console.log("✅ RESPONSE:", res.data);
+            console.log("✅ FULL RESPONSE:", JSON.stringify(res.data, null, 2));
 
-            toast.success("Profile created successfully 🎉");
+            toast.success("Profile created successfully");
 
             setTimeout(() => {
                 localStorage.setItem("profileSlug", res.data.data.slug);
