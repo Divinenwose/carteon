@@ -18,14 +18,17 @@ const ProfileLive = () => {
     };
 
     const handleNextCardSetup = () => {
-        const reference = localStorage.setItem("reference", reference);
-        const quantity = localStorage.setItem("quantity", quantity);
+        const reference = localStorage.getItem("reference");
+        const quantity = localStorage.getItem("quantity");
 
         navigate("/card-setup", {
-            state: { reference, quantity }
+            state: {
+                reference,
+                quantity: Number(quantity)
+            }
         });
     };
-
+    
     return (
         <section>
             <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-start px-4 py-30">
