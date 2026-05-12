@@ -101,9 +101,6 @@ const ProfileSetup = () => {
 
         try {
             const payload = {
-                userId: profileData.userId,
-                cardId: profileData.cardId,
-
                 profileName:
                     profileData.identity.fullName || "My Professional Profile",
 
@@ -128,12 +125,11 @@ const ProfileSetup = () => {
                 links: profileData.links
                     .filter(link => link.platform && link.url)
                     .map(link => ({
-                        type: link.platform.toLowerCase(),
+                        type: link.platform, // IMPORTANT FIX
                         url: link.url,
                     })),
             };
-
-            // 👇 ADD THIS
+            
             console.log("🚀 PROFILE SETUP PAYLOAD:", payload);
 
             const res = await axios.post(
