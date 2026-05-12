@@ -21,7 +21,7 @@ const ProfileLive = () => {
         const reference = localStorage.getItem("reference");
         const quantity = localStorage.getItem("quantity");
 
-        navigate("/cardsetup", {
+        navigate("/card-setup", {
             state: { reference, quantity }
         });
     };

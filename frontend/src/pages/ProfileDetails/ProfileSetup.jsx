@@ -147,7 +147,7 @@ const ProfileSetup = () => {
 
             console.log("✅ RESPONSE:", res.data);
 
-            toast.success("Profile created successfully");
+            toast.success("Profile created successfully 🎉");
 
             setTimeout(() => {
                 navigate("/profile-success");
@@ -173,7 +173,6 @@ const ProfileSetup = () => {
 
     return (
         <section className=" w-full h-auto bg-white">
-            <ToastContainer position="top-right" autoClose={3000} />
             <div className="flex flex-col gap-4 items-center justify-center pt-[120px] sm:pt-20 md:pt-30 px-4 sm:px-6 md:px-0">
                 <h2 className="font-Inter font-semibold text-[36px] sm:text-[48px] md:text-[56px] leading-[41px] sm:leading-[54px] md:leading-[61.6px] tracking-[-1.12px] text-[#0F1419] text-center">
                     Create Your Digital Identity
@@ -577,6 +576,7 @@ const ProfileSetup = () => {
                     )}
                 </div>
             </div>
+            <ToastContainer position="top-right" autoClose={3000} />
             <Footer />
         </section>
 
