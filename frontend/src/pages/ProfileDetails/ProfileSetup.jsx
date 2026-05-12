@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Footer from "../../components/Footer/Footer.jsx";
 import upload from "../../assets/upload.png";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 const ProfileSetup = () => {
     const [step, setStep] = useState(1);
@@ -84,7 +85,7 @@ const ProfileSetup = () => {
 
             console.log(error.response?.data);
 
-            alert(
+            toast.error(
                 error.response?.data?.message ||
                 "Failed to upload image."
             );
@@ -97,7 +98,7 @@ const ProfileSetup = () => {
 
     const handleSubmit = async () => {
         if (uploading) {
-            alert('Please wait for the image to finish uploading.');
+            toast.error("Please wait for the image to finish uploading.");
             return;
         }
 
@@ -151,11 +152,13 @@ const ProfileSetup = () => {
 
             setTimeout(() => {
                 navigate("/profile-success");
-            }, 1200);
+            }, 3000);
 
         } catch (err) {
             console.error("❌ ERROR:", err.response?.data || err);
-            alert("Error creating profile");
+            toast.error(
+                err.response?.data?.message || "Error creating profile"
+            );
         }
     };
 
@@ -576,7 +579,15 @@ const ProfileSetup = () => {
                     )}
                 </div>
             </div>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                newestOnTop
+                closeOnClick
+                pauseOnHover
+                theme="light"
+                style={{ zIndex: 999999 }}
+            />
             <Footer />
         </section>
 
