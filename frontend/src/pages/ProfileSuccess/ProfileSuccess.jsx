@@ -9,6 +9,11 @@ import Footer from "../../components/Footer/Footer.jsx";
 const ProfileLive = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const profileSlug =
+        location.state?.slug ??
+        localStorage.getItem("profileSlug") ??
+        "";
+    const profileUrl = `https://carteon.vercel.app/${profileSlug}`;
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -70,17 +75,25 @@ const ProfileLive = () => {
                     </p>
 
                     <div className="border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-600 truncate text-center">
-                        https://812c1555-67aa-48b7-aac5-7e196f72124e-v2-figmaiframepreview.figma.site/profile/lyvmlk6ve
+                        {profileUrl}
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-3 mt-4">
 
-                        <button className="flex items-center justify-center gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full">
+                        <button
+                            onClick={() => window.open(profileUrl, "_blank")}
+                            className="flex items-center justify-center gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full"
+                        >
                             <img src={direct} alt="redirect-icon" />
                             View Profile
                         </button>
 
-                        <button className="flex items-center justify-center gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full">
+                        <button
+                            onClick={() => {
+                                navigator.clipboard.writeText(profileUrl);
+                            }}
+                            className="flex items-center justify-center gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full"
+                        >
                             <img src={copy} alt="copy-icon" />
                             Copy Link
                         </button>

@@ -47,7 +47,7 @@ function App() {
           <Route path="/profiledetails" element={<ProfileSetup />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/success" element={<Success />} />
-          <Route path="/adaeze" element={<DigitalCard />} />
+          <Route path="/:identifier" element={<DigitalCard />} />
           <Route path="/card-setup" element={<CardSetup />} />
           <Route path="/profile-success" element={<ProfileLive />} />
           <Route path="/customer-support" element={<Customer />} />

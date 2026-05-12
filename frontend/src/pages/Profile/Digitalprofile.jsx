@@ -1,4 +1,7 @@
 import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import adaeze from "../../assets/adaeze.png"
 import bg from "../../assets/bg.png";
 import crown from "../../assets/crown.png";
@@ -13,12 +16,42 @@ import port from "../../assets/port.png";
 import logo from "../../assets/logo.png";
 
 const DigitalCard = () => {
+    const { identifier } = useParams();
+
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const res = await axios.get(
+                    `${import.meta.env.VITE_BACKEND_URL}api/v1/profiles/${identifier}`
+                );
+
+                setProfile(res.data.data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProfile();
+    }, [identifier]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!profile) {
+        return <div>Profile not found</div>;
+    }
     return (
         <div className="w-full  min-h-screen flex justify-center">
             <div className="w-full max-w-md relative ">
                 <div className="w-full -mt-[100px]">
                     <img
-                        src={adaeze}
+                        src={profile.identity.photoUrl}
                         alt="profile"
                         className="w-full h-full object-cover object-top"
                     />
@@ -47,13 +80,13 @@ const DigitalCard = () => {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <div>
-                                        <h2 className="font-inter font-bold text-[17.27px] text-black leading-[27.09px] tracking-[0%]">Adaeze Okonkwo</h2>
-                                        <p className="font-inter font-normal text-[14px] text-black leading-[27px] tracking-[0%] align-middle">CEO & Founder</p>
-                                        <p className="font-inter font-normal text-[14px] text-black leading-[27px] tracking-[0%] align-middle">Nexus Ventures Africa</p>
+                                        <h2 className="font-inter font-bold text-[17.27px] text-black leading-[27.09px] tracking-[0%]">{profile.identity.fullName}</h2>
+                                        <p className="font-inter font-normal text-[14px] text-black leading-[27px] tracking-[0%] align-middle">{profile.identity.title}</p>
+                                        <p className="font-inter font-normal text-[14px] text-black leading-[27px] tracking-[0%] align-middle">{profile.identity.company}</p>
                                     </div>
 
                                     <p className="font-inter font-normal mt-[22px] text-[13.55px] text-black w-[303px] leading-[18.62px] tracking-[0%]">
-                                        Building Africa's next generation of technology infrastructure.
+                                        {profile.identity.bio}
                                     </p>
                                 </div>
                             </div>
@@ -64,7 +97,7 @@ const DigitalCard = () => {
                                 <div>
                                     <img src={call} alt="" />
                                 </div>
-                                <a href="tel:+2340000000000" className="font-inter font-medium text-[11.85px] text-[#252C46] leading-[16.93px] tracking-[0%] text-center align-middle">
+                                <a href={`tel:${profile.contactInfo.phone}`} className="font-inter font-medium text-[11.85px] text-[#252C46] leading-[16.93px] tracking-[0%] text-center align-middle">
                                     Call
                                 </a>
                             </div>
@@ -72,13 +105,13 @@ const DigitalCard = () => {
                                 <div>
                                     <img src={chatt} alt="" />
                                 </div>
-                                <a href="mailto:email@example.com" className="font-inter font-medium text-[11.85px] text-[#252C46] leading-[16.93px] tracking-[0%] text-center align-middle" >
+                                <a href={`mailto:${profile.contactInfo.email}`} className="font-inter font-medium text-[11.85px] text-[#252C46] leading-[16.93px] tracking-[0%] text-center align-middle" >
                                     Email
                                 </a>
                             </div>
                             <div className="w-[104px] h-[60px] bg-[#F9FAFF] gap-2  rounded-[7px] p-3 flex flex-col items-center">
                                 <img src={chat} alt="" />
-                                <a href="sms:+2340000000000" className="font-inter font-medium text-[11.85px] text-[#252C46] leading-[16.93px] tracking-[0%] text-center align-middle">
+                                <a href={`sms:${profile.contactInfo.phone}`} className="font-inter font-medium text-[11.85px] text-[#252C46] leading-[16.93px] tracking-[0%] text-center align-middle">
                                     Message
                                 </a>
                             </div>
@@ -97,41 +130,27 @@ const DigitalCard = () => {
                     </div>
                     <div className="mt-7 px-2">
                         <h3 className="font-inter font-semibold text-[20px] text-[#1A1A1A] leading-[22px] tracking-[0%] align-middle">Links</h3>
-
                         <div >
                             <div className="flex flex-col gap-2">
-                                <div className="w-[100%] mt-[20px] h-[44px] flex justify-between bg-[#F9FAFF] p-[8.47px]">
-                                    <a href="#" className="flex items-center gap-2 font-inter font-medium text-[10.07px] text-[#252C46] leading-[16.93px] tracking-[0%] align-middle" >
-                                        <img src={nexus} alt="" /> nexusventures.africa
-                                    </a>
-                                    <div>
-                                        <img src={arrrow} alt="" />
+                                {profile.links.map((link) => (
+                                    <div
+                                        key={link._id}
+                                        className="w-[100%] h-[44px] flex justify-between bg-[#F9FAFF] p-[8.47px]"
+                                    >
+                                        <a
+                                            href={link.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 font-inter font-medium text-[10.07px] text-[#252C46]"
+                                        >
+                                            {link.type}
+                                        </a>
+
+                                        <div>
+                                            <img src={arrrow} alt="" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="w-[100%] h-[44px] flex justify-between bg-[#F9FAFF] p-[8.47px]">
-                                    <a href="#" className="flex items-center gap-2 font-inter font-medium text-[10.07px] text-[#252C46] leading-[16.93px] tracking-[0%] align-middle">
-                                        <img src={linked} alt="" /> linkedin.com/in/adaeze
-                                    </a>
-                                    <div>
-                                        <img src={arrrow} alt="" />
-                                    </div>
-                                </div>
-                                <div className="w-[100%] h-[44px] flex justify-between bg-[#F9FAFF] p-[8.47px]">
-                                    <a href="#" className="flex items-center gap-2 font-inter font-medium text-[10.07px] text-[#252C46] leading-[16.93px] tracking-[0%] align-middle">
-                                        <img src={port} alt="" /> Portfolio & Media
-                                    </a>
-                                    <div>
-                                        <img src={arrrow} alt="" />
-                                    </div>
-                                </div>
-                                <div className="w-[100%] h-[44px] flex justify-between bg-[#F9FAFF] p-[8.47px]">
-                                    <a href="#" className="flex items-center gap-2 font-inter font-medium text-[10.07px] text-[#252C46] leading-[16.93px] tracking-[0%] align-middle">
-                                        <img src={port} alt="" /> Portfolio & Media
-                                    </a>
-                                    <div>
-                                        <img src={arrrow} alt="" />
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
                     </div>

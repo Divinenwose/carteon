@@ -151,7 +151,14 @@ const ProfileSetup = () => {
             toast.success("Profile created successfully 🎉");
 
             setTimeout(() => {
-                navigate("/profile-success");
+                navigate("/profile-success", {
+                    state: {
+                        slug: response.data.data.slug,
+                        quantity,
+                        reference,
+                        cardType
+                    }
+                })
             }, 3000);
 
         } catch (err) {
