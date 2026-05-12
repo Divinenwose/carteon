@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import confetti from "../../assets/confetti.png";
 import direct from "../../assets/direct.png";
 import download from "../../assets/download.png";
@@ -8,6 +8,7 @@ import Footer from "../../components/Footer/Footer.jsx";
 
 const ProfileLive = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -18,17 +19,33 @@ const ProfileLive = () => {
     };
 
     const handleNextCardSetup = () => {
-        const reference = localStorage.getItem("reference");
-        const quantity = localStorage.getItem("quantity");
+        const quantity = Number(
+            location.state?.quantity ??
+            localStorage.getItem("quantity") ??
+            0
+        );
+
+        const reference =
+            location.state?.reference ??
+            localStorage.getItem("reference") ??
+            "";
+
+        const cardType =
+            location.state?.cardType ??
+            localStorage.getItem("cardType") ??
+            "";
+
+        // validation
+        if (!quantity || quantity < 1) {
+            navigate("/");
+            return;
+        }
 
         navigate("/card-setup", {
-            state: {
-                reference,
-                quantity: Number(quantity)
-            }
+            state: { reference, quantity, cardType }
         });
     };
-    
+
     return (
         <section>
             <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-start px-4 py-30">

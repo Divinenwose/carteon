@@ -6,13 +6,21 @@ const CardSetup = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const quantity = Number(
-        location.state?.quantity ||
-        localStorage.getItem("quantity") ||
-        0
-    );
-    const cardType = location.state?.cardType || "Gold";
-    const reference = location.state?.reference || localStorage.getItem("reference") || "";
+    const rawQuantity =
+        location.state?.quantity ??
+        localStorage.getItem("quantity");
+
+    const quantity = parseInt(rawQuantity ?? "0", 10);
+
+    const reference =
+        location.state?.reference ??
+        localStorage.getItem("reference") ??
+        "";
+
+    const cardType =
+        location.state?.cardType ??
+        localStorage.getItem("cardType") ??
+        "Gold";
 
     const [completedCards, setCompletedCards] = useState([]);
 
@@ -42,11 +50,17 @@ const CardSetup = () => {
     };
 
     if (!quantity || quantity < 1) {
-        return null;
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <p className="text-gray-500">
+                    No card setup data found. Please restart the setup process.
+                </p>
+            </div>
+        );
     }
 
     return (
-        <section >
+        <section>
             <div className="flex justify-center px-4 my-30">
                 <div className="w-full max-w-[700px]">
 
@@ -96,8 +110,8 @@ const CardSetup = () => {
                                         onClick={() => handleSetupClick(index)}
                                         disabled={isCompleted}
                                         className={`px-4 py-2 cursor-pointer rounded-md text-sm ${isCompleted
-                                            ? "bg-green-500 text-white"
-                                            : "bg-[#0F1419] text-white"
+                                                ? "bg-green-500 text-white"
+                                                : "bg-[#0F1419] text-white"
                                             }`}
                                     >
                                         {isCompleted ? "Completed" : "Set Up Profile"}
@@ -108,9 +122,8 @@ const CardSetup = () => {
                     </div>
                 </div>
             </div>
-            <div>
-                <Footer />
-            </div>
+
+            <Footer />
         </section>
     );
 };
