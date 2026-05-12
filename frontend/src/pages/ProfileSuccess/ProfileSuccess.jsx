@@ -13,7 +13,10 @@ const ProfileLive = () => {
         location.state?.slug ??
         localStorage.getItem("profileSlug") ??
         "";
-    const profileUrl = `https://carteon.vercel.app/${profileSlug}`;
+
+    const profileUrl = profileSlug
+        ? `${window.location.origin}/${profileSlug}`
+        : "";
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });

@@ -1,8 +1,6 @@
-import React from "react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import adaeze from "../../assets/adaeze.png"
 import bg from "../../assets/bg.png";
 import crown from "../../assets/crown.png";
 import call from "../../assets/call.png";
@@ -10,10 +8,8 @@ import chatt from "../../assets/chatt.png";
 import chat from "../../assets/chat.png";
 import head from "../../assets/head.png";
 import arrrow from "../../assets/arrrow.png";
-import nexus from "../../assets/nexus.png";
-import linked from "../../assets/linked.png";
-import port from "../../assets/port.png";
 import logo from "../../assets/logo.png";
+
 
 const DigitalCard = () => {
     const { identifier } = useParams();
