@@ -65,6 +65,57 @@ const ProfileSetup = () => {
     const next = () => setStep((prev) => prev + 1);
     const back = () => setStep((prev) => prev - 1);
 
+    const validateStep1 = () => {
+        if (!profileData.identity.photo) {
+            toast.error("Profile photo is required");
+            return false;
+        }
+
+        if (!profileData.identity.fullName.trim()) {
+            toast.error("Full Name is required");
+            return false;
+        }
+
+        if (!profileData.identity.title.trim()) {
+            toast.error("Professional Title is required");
+            return false;
+        }
+
+        if (!profileData.identity.bio.trim()) {
+            toast.error("Bio is required");
+            return false;
+        }
+
+        return true;
+    };
+
+    const validateStep2 = () => {
+        if (!profileData.contactInfo.phone.trim()) {
+            toast.error("Phone number is required");
+            return false;
+        }
+
+        if (!profileData.contactInfo.email.trim()) {
+            toast.error("Email is required");
+            return false;
+        }
+
+        return true;
+    };
+
+    const validateStep3 = () => {
+        const validLinks = profileData.links.filter(
+            (link) => link.platform.trim() && link.url.trim()
+        );
+
+        if (validLinks.length === 0) {
+            toast.error("Please add at least one valid link");
+            return false;
+        }
+
+        return true;
+    };
+
     // Image Upload Function
     const uploadImage = async (file) => {
         setUploading(true);
@@ -139,19 +190,19 @@ const ProfileSetup = () => {
                 },
 
                 contactInfo: {
-                    phone: profileData.contactInfo.phone,
+                    phone: `+234${profileData.contactInfo.phone}`,
                     email: profileData.contactInfo.email,
                 },
 
                 links: profileData.links
                     .filter(link => link.platform && link.url)
                     .map(link => ({
-                        type: link.platform, // IMPORTANT FIX
+                        type: link.platform,
                         url: link.url,
                     })),
             };
 
-            console.log("🚀 PROFILE SETUP PAYLOAD:", payload);
+            console.log("PROFILE SETUP PAYLOAD:", payload);
 
             const res = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/profiles/setup`,
@@ -164,7 +215,7 @@ const ProfileSetup = () => {
                 }
             );
 
-            console.log("✅ FULL RESPONSE:", JSON.stringify(res.data, null, 2));
+            console.log("FULL RESPONSE:", JSON.stringify(res.data, null, 2));
 
             toast.success("Profile created successfully");
 
@@ -326,7 +377,7 @@ const ProfileSetup = () => {
                                 />
                             </div>
                             <div className="flex flex-col gap-3 w-full">
-                                <label htmlFor="Bio" className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]">Bio <span className="text-[#737373]">(Optional)</span></label>
+                                <label htmlFor="Bio" className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]">Bio</label>
                                 <textarea
                                     className="w-full h-[64px] bg-[#F3F3F5] rounded-[8px] pt-[8px] pb-[8px] px-[12px] border border-t border-[#D4D4D4]"
                                     placeholder="Tell people about yourself..."
@@ -348,6 +399,7 @@ const ProfileSetup = () => {
                             </div>
                             <button
                                 onClick={() => {
+                                    if (!validateStep1()) return;
                                     next();
                                     window.scrollTo({ top: 0, behavior: "smooth" });
                                 }}
@@ -365,20 +417,39 @@ const ProfileSetup = () => {
                                 <p className="font-Inter font-normal text-[16px] leading-[24px] tracking-[0px] text-[#525252]">Add your contact information and control what's visible</p>
                             </div>
                             <div className="flex flex-col gap-3 w-full">
-                                <label htmlFor="Phone" className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]" >Phone</label>
-                                <input
-                                    className="w-full h-[48px] bg-[#F3F3F5] rounded-[8px] pt-[4px] pb-[4px] px-[12px] border border-[#D4D4D4]"
-                                    placeholder="7010486939"
-                                    onChange={(e) =>
-                                        setProfileData({
-                                            ...profileData,
-                                            contactInfo: {
-                                                ...profileData.contactInfo,
-                                                phone: e.target.value,
-                                            },
-                                        })
-                                    }
-                                />
+                                <label
+                                    htmlFor="Phone"
+                                    className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]"
+                                >
+                                    Phone
+                                </label>
+
+                                <div className="w-full h-[48px] bg-[#F3F3F5] rounded-[8px] border border-[#D4D4D4] flex items-center overflow-hidden">
+                                    <div className="h-full px-[12px] flex items-center text-[#404040] font-medium border-r border-[#D4D4D4]">
+                                        +234
+                                    </div>
+
+                                    <input
+                                        type="tel"
+                                        maxLength={10}
+                                        className="w-full h-full bg-transparent pt-[4px] pb-[4px] px-[12px] outline-none"
+                                        placeholder="7010486939"
+                                        value={profileData.contactInfo.phone}
+                                        onChange={(e) => {
+                                            const value = e.target.value.replace(/\D/g, "");
+
+                                            if (value.length <= 10) {
+                                                setProfileData({
+                                                    ...profileData,
+                                                    contactInfo: {
+                                                        ...profileData.contactInfo,
+                                                        phone: value,
+                                                    },
+                                                });
+                                            }
+                                        }}
+                                    />
+                                </div>
                             </div>
                             <div className="flex flex-col gap-3 w-full">
                                 <label htmlFor="Phone" className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]" >Email</label>
@@ -397,7 +468,7 @@ const ProfileSetup = () => {
                                 />
                             </div>
                             <div className="flex flex-col gap-3 w-full">
-                                <label htmlFor="Phone" className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]" >Website</label>
+                                <label htmlFor="Phone" className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]" >Website <span className="text-[#737373]">(Optional)</span></label>
                                 <input
                                     className="w-full h-[48px] bg-[#F3F3F5] rounded-[8px] pt-[4px] pb-[4px] px-[12px] border border-[#D4D4D4]"
                                     placeholder="https://example.com"
@@ -432,7 +503,7 @@ const ProfileSetup = () => {
                                 <button
                                     onClick={() => {
                                         back();
-                                        window.scrollTo({ top: 0, behavior: "smooth" }); // scroll to top
+                                        window.scrollTo({ top: 0, behavior: "smooth" });
                                     }}
                                     className="w-full cursor-pointer h-[48px] bg-white rounded-[8px] pt-[8px] pb-[8px] px-[16px] border-2 border-t-2 border-[#D4D4D4] font-Inter font-semibold text-[14px] leading-[20px] tracking-[0px] text-[#0A0A0A] text-center"
                                 >
@@ -441,8 +512,9 @@ const ProfileSetup = () => {
 
                                 <button
                                     onClick={() => {
+                                        if (!validateStep2()) return;
                                         next();
-                                        window.scrollTo({ top: 0, behavior: "smooth" }); // scroll to top
+                                        window.scrollTo({ top: 0, behavior: "smooth" });
                                     }}
                                     className="w-full h-[48px] cursor-pointer font-Inter font-semibold text-[14px] leading-[20px] tracking-[0px] text-white text-center bg-[#252C46] rounded-[8px] pt-[8px] pb-[8px] px-[16px] shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A]"
                                 >
@@ -526,8 +598,9 @@ const ProfileSetup = () => {
 
                                 <button
                                     onClick={() => {
-                                        next(); // go to next step
-                                        window.scrollTo({ top: 0, behavior: "smooth" }); // scroll to top
+                                        if (!validateStep3()) return;
+                                        next();
+                                        window.scrollTo({ top: 0, behavior: "smooth" });
                                     }}
                                     className="w-full h-[48px] cursor-pointer font-Inter font-semibold text-[14px] leading-[20px] tracking-[0px] text-white text-center bg-[#252C46] rounded-[8px] pt-[8px] pb-[8px] px-[16px] shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A]"
                                 >
@@ -571,7 +644,12 @@ const ProfileSetup = () => {
 
                             {/* Contact Details */}
                             <div className="flex flex-col gap-2">
-                                <p><strong>Phone:</strong> {profileData.contactInfo.phone || "-"}</p>
+                                <p>
+                                    <strong>Phone:</strong>{" "}
+                                    {profileData.contactInfo.phone
+                                        ? `+234${profileData.contactInfo.phone}`
+                                        : "-"}
+                                </p>
                                 <p><strong>Email:</strong> {profileData.contactInfo.email || "-"}</p>
                                 <p><strong>Website:</strong> {profileData.contactInfo.website || "-"}</p>
                                 <p><strong>Location:</strong> {profileData.contactInfo.location || "-"}</p>
@@ -598,14 +676,14 @@ const ProfileSetup = () => {
                                         back();
                                         window.scrollTo({ top: 0, behavior: "smooth" }); // scroll to top
                                     }}
-                                    className="w-1/2 h-[48px] border border-[#D4D4D4] rounded-[8px] font-Inter font-semibold text-[14px] text-[#0A0A0A]"
+                                    className="w-1/2 h-[48px] border border-[#D4D4D4] cursor-pointer rounded-[8px] font-Inter font-semibold text-[14px] text-[#0A0A0A]"
                                 >
                                     Back
                                 </button>
 
                                 <button
                                     onClick={handleSubmit}
-                                    className="w-1/2 h-[48px] bg-[#252C46] text-white rounded-[8px] font-Inter font-semibold text-[14px]"
+                                    className="w-1/2 h-[48px] bg-[#252C46] cursor-pointer text-white rounded-[8px] font-Inter font-semibold text-[14px]"
                                 >
                                     Publish
                                 </button>

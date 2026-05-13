@@ -146,7 +146,7 @@ const ProfileLive = () => {
                 </div>
 
                 <p className="text-xs text-gray-400 mt-6 text-center">
-                    3-7 working days outside Lagos, then 7-21 working days outside Nigeria
+                    2-4 working days within Lagos, 4-7 working days within Nigeria and 7-21 working days outside Nigeria
                 </p>
 
                 {/* ACTION BUTTONS */}

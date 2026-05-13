@@ -25,6 +25,10 @@ const CardSetup = () => {
     const [completedCards, setCompletedCards] = useState([]);
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+
+    useEffect(() => {
         if (!reference) return;
 
         const saved = JSON.parse(

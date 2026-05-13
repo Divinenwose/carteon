@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Minus, Plus } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -71,6 +71,10 @@ const faqData = [
 const LandingPage = () => {
     const navigate = useNavigate();
     const [active, setActive] = useState(null);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
     const toggle = (index) => {
         setActive(active === index ? null : index);
