@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -10,8 +10,26 @@ import upload from "../../assets/upload.png";
 const ProfileSetup = () => {
     const [step, setStep] = useState(1);
     const navigate = useNavigate();
+    const location = useLocation();
     const [platform, setPlatform] = useState("");
     const [url, setUrl] = useState("");
+    const quantity =
+        location.state?.quantity ??
+        localStorage.getItem("quantity") ??
+        0;
+
+    const reference =
+        location.state?.reference ??
+        localStorage.getItem("reference") ??
+        "";
+
+    const cardType =
+        location.state?.cardType ??
+        localStorage.getItem("cardType") ??
+        "";
+
+    const cardIndex =
+        location.state?.cardIndex ?? null;
 
     const [profileData, setProfileData] = useState({
         userId: "",
