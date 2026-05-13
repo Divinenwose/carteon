@@ -85,7 +85,7 @@ const ProfileLive = () => {
 
                         <button
                             onClick={() => window.open(profileUrl, "_blank")}
-                            className="flex items-center justify-center gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full"
+                            className="flex items-center justify-center cursor-pointer gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full"
                         >
                             <img src={direct} alt="redirect-icon" />
                             View Profile
@@ -95,13 +95,13 @@ const ProfileLive = () => {
                             onClick={() => {
                                 navigator.clipboard.writeText(profileUrl);
                             }}
-                            className="flex items-center justify-center gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full"
+                            className="flex items-center justify-center cursor-pointer  gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full"
                         >
                             <img src={copy} alt="copy-icon" />
                             Copy Link
                         </button>
 
-                        <button className="flex items-center justify-center gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full">
+                        <button className="flex items-center justify-center cursor-pointer gap-2 border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-50 w-full">
                             <img src={download} alt="download-icon" />
                             Download QR
                         </button>
@@ -127,14 +127,14 @@ const ProfileLive = () => {
 
                     <button
                         onClick={handleReturnHome}
-                        className="border border-gray-300 rounded-md px-6 py-2 text-sm hover:bg-gray-50 w-full"
+                        className="border border-gray-300 rounded-md px-6 py-2 cursor-pointer  text-sm hover:bg-gray-50 w-full"
                     >
                         Return to Homepage
                     </button>
 
                     <button
                         onClick={handleNextCardSetup}
-                        className="bg-[#0F1419] text-white rounded-md px-6 py-2 text-sm hover:opacity-90 w-full"
+                        className="bg-[#0F1419] text-white rounded-md px-6 py-2 cursor-pointer text-sm hover:opacity-90 w-full"
                     >
                         Setup Next Card
                     </button>

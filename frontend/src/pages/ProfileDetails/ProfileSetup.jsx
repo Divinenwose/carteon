@@ -150,7 +150,7 @@ const ProfileSetup = () => {
 
             toast.success("Profile created successfully");
 
-            const identifier = res.data.data.cardId;
+            const identifier = res.data.data._id;
 
             setTimeout(() => {
 
@@ -168,7 +168,7 @@ const ProfileSetup = () => {
             }, 3000);
 
         } catch (err) {
-            console.error("❌ ERROR:", err.response?.data || err);
+            console.error("ERROR:", err.response?.data || err);
             toast.error(
                 err.response?.data?.message || "Error creating profile"
             );
