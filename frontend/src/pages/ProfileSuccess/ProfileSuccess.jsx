@@ -18,9 +18,36 @@ const ProfileLive = () => {
         ? `${window.location.origin}/${profileIdentifier}`
         : "";
 
+    const cardIndex =
+        location.state?.cardIndex ?? null;
+
+    const reference =
+        location.state?.reference ??
+        localStorage.getItem("reference") ??
+        "";
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, []);
+
+    useEffect(() => {
+        if (cardIndex === null || !reference) return;
+
+        const storageKey = `completedCards_${reference}`;
+
+        const existingCards =
+            JSON.parse(localStorage.getItem(storageKey)) || [];
+
+        // avoid duplicates
+        if (!existingCards.includes(cardIndex)) {
+            const updatedCards = [...existingCards, cardIndex];
+
+            localStorage.setItem(
+                storageKey,
+                JSON.stringify(updatedCards)
+            );
+        }
+    }, [cardIndex, reference]);
 
     const handleReturnHome = () => {
         navigate("/");

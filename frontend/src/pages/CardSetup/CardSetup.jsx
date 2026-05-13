@@ -44,8 +44,15 @@ const CardSetup = () => {
     }, [completedCards, reference]);
 
     const handleSetupClick = (cardIndex) => {
+        if (completedCards.includes(cardIndex)) return;
+
         navigate("/profiledetails", {
-            state: { cardIndex, reference }
+            state: {
+                cardIndex,
+                reference,
+                quantity,
+                cardType
+            }
         });
     };
 
@@ -110,8 +117,8 @@ const CardSetup = () => {
                                         onClick={() => handleSetupClick(index)}
                                         disabled={isCompleted}
                                         className={`px-4 py-2 cursor-pointer rounded-md text-sm ${isCompleted
-                                                ? "bg-green-500 text-white"
-                                                : "bg-[#0F1419] text-white"
+                                            ? "bg-green-500 text-white"
+                                            : "bg-[#0F1419] text-white"
                                             }`}
                                     >
                                         {isCompleted ? "Completed" : "Set Up Profile"}

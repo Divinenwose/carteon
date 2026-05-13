@@ -162,6 +162,10 @@ const ProfileSetup = () => {
                 navigate("/profile-success", {
                     state: {
                         identifier,
+                        quantity,
+                        reference,
+                        cardType,
+                        cardIndex
                     }
                 });
 
