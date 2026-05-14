@@ -102,7 +102,7 @@ const Checkout = () => {
                         colorVariant: location.state?.colorVariant ?? "black",
                     },
                 ],
-                totalAmount: Number(product.price) * Number(product.quantity) // temporary but will be validated server-side
+                totalAmount: Number(product.price) * Number(product.quantity)
             };
 
             const res = await axios.post(

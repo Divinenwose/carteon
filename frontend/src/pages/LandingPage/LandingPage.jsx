@@ -876,7 +876,7 @@ const LandingPage = () => {
                         const cardData = [
                             { name: "Carteon Smart Card", desc: "Premium stainless steel NFC card with instant tap connectivity.", price: "₦50,000", priceUnit: "/ one-time", slug: "carteon-smart-card", basePrice: 50000, finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror'] },
                             { name: "PVC QR Card", desc: "Premium stainless steel NFC card with instant tap connectivity.", price: "₦30,000", priceUnit: "", slug: "pvc-qr-card", basePrice: 30000, finishes: [] },
-                            { name: "Complete Package", desc: "Premium stainless steel NFC card with instant tap connectivity.", price: "₦60,000", priceUnit: "", slug: "complete-package", basePrice: 60000, finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror'] }
+                            { name: "Complete Package", desc: "Bundle of Smart Card and PVC QR Card", price: "₦60,000", priceUnit: "", slug: "complete-package", basePrice: 60000, finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror'] }
                         ];
                         const currentCard = cardData[i];
 
