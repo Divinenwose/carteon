@@ -105,6 +105,25 @@ const Checkout = () => {
                 totalAmount: Number(product.price) * Number(product.quantity)
             };
 
+            console.log("SELECTED CARD:", selectedCard);
+
+            console.log("PAYLOAD:", {
+                customerData: {
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    address: formData.address,
+                },
+                items: [
+                    {
+                        cardType,
+                        quantity: Number(quantity),
+                        colorVariant: location.state?.colorVariant ?? "black",
+                    },
+                ],
+                totalAmount: Number(product.price) * Number(product.quantity)
+            });
+
             const res = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}api/v1/orders/`,
                 payload,
@@ -141,8 +160,17 @@ const Checkout = () => {
             window.location.href = paymentUrl;
 
         } catch (error) {
-            console.error(error);
-            alert("Order initialization failed");
+            console.log("FULL ERROR:", error);
+
+            if (error.response) {
+                console.log("ERROR RESPONSE:", error.response.data);
+                console.log("STATUS:", error.response.status);
+            }
+
+            alert(
+                error.response?.data?.message ||
+                "Order initialization failed"
+            );
         } finally {
             setLoading(false);
         }

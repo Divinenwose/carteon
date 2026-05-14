@@ -95,13 +95,13 @@ const CardDetails = () => {
 
     const handleBuyNow = () => {
         const cardTypeMapping = {
-            "Smart Card": "SMART_ONLY",
-            "PVC QR Card": "PVC_QR_ONLY",
-            "Complete Package": "COMPLETE_PACKAGE",
+            "carteon-smart-card": "SMART_ONLY",
+            "pvc-qr-card": "PVC_QR_ONLY",
+            "complete-package": "COMPLETE_PACKAGE",
         };
 
         const cardType =
-            cardTypeMapping[selectedVariant?.variantName] || "SMART_ONLY";
+            cardTypeMapping[product?.slug] || "SMART_ONLY";
 
         const colorMapping = {
             gold: "gold",
