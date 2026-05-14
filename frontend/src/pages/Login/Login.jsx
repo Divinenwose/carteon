@@ -93,7 +93,25 @@ const Login = () => {
                 toast.success("Login successful");
 
                 setTimeout(() => {
-                    navigate(location.state?.from || "");
+
+                    // check if user was redirected from checkout
+                    const pendingCheckout = JSON.parse(
+                        localStorage.getItem("pendingCheckout")
+                    );
+
+                    if (pendingCheckout) {
+
+                        localStorage.removeItem("pendingCheckout");
+
+                        navigate("/checkout", {
+                            state: pendingCheckout,
+                        });
+
+                    } else {
+
+                        navigate(location.state?.from || "/");
+                    }
+
                 }, 1500);
 
             } else {

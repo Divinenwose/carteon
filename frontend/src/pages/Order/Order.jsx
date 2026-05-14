@@ -15,9 +15,23 @@ const Checkout = () => {
 
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const token =
+            localStorage.getItem("token") ||
+            sessionStorage.getItem("token");
 
         if (!token) {
+
+            // save checkout data before redirecting
+            localStorage.setItem(
+                "pendingCheckout",
+                JSON.stringify({
+                    variant: selectedCard,
+                    quantity,
+                    cardType,
+                    colorVariant: location.state?.colorVariant,
+                })
+            );
+
             toast.error("Please log in before checking out");
 
             navigate("/login", {
@@ -32,7 +46,7 @@ const Checkout = () => {
         if (!selectedCard) {
             navigate("/");
         }
-    }, [selectedCard, navigate]);
+    }, [selectedCard, navigate, quantity, cardType, location.state]);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -97,7 +111,10 @@ const Checkout = () => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        'Authorization': `Bearer ${localStorage.getItem("token") || ""}`,
+                        'Authorization': `Bearer ${localStorage.getItem("token") ||
+                            sessionStorage.getItem("token") ||
+                            ""
+                            }`,
                     },
                 }
             );
