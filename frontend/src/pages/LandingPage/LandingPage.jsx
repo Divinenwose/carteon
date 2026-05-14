@@ -874,9 +874,36 @@ const LandingPage = () => {
                 >
                     {[card1, card2, card3].map((card, i) => {
                         const cardData = [
-                            { name: "Carteon Smart Card", desc: "Premium stainless steel NFC card with instant tap connectivity.", price: "₦50,000", priceUnit: "/ one-time", slug: "carteon-smart-card", basePrice: 50000, finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror'] },
-                            { name: "PVC QR Card", desc: "Premium stainless steel NFC card with instant tap connectivity.", price: "₦30,000", priceUnit: "", slug: "pvc-qr-card", basePrice: 30000, finishes: [] },
-                            { name: "COMPLETE_PACKAGE", desc: "Bundle of Smart Card and PVC QR Card", price: "₦60,000", priceUnit: "", slug: "complete-package", basePrice: 60000, finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror'] }
+                            {
+                                name: "Carteon Smart Card",
+                                desc: "Premium stainless steel NFC card with instant tap connectivity.",
+                                price: "₦50,000",
+                                priceUnit: "/ one-time",
+                                slug: "carteon-smart-card",
+                                basePrice: 50000,
+                                cardType: "SMART_CARD",
+                                finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror']
+                            },
+                            {
+                                name: "PVC QR Card",
+                                desc: "Premium stainless steel NFC card with instant tap connectivity.",
+                                price: "₦30,000",
+                                priceUnit: "",
+                                slug: "pvc-qr-card",
+                                basePrice: 30000,
+                                cardType: "PVC_QR_CARD",
+                                finishes: []
+                            },
+                            {
+                                name: "Complete Package",
+                                desc: "Bundle of Smart Card and PVC QR Card",
+                                price: "₦60,000",
+                                priceUnit: "",
+                                slug: "complete-package",
+                                basePrice: 60000,
+                                cardType: "COMPLETE_PACKAGE",
+                                finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror']
+                            }
                         ];
                         const currentCard = cardData[i];
 
@@ -967,7 +994,15 @@ const LandingPage = () => {
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        onClick={() => handleBuyNowClick({ slug: currentCard.slug, name: currentCard.name, basePrice: currentCard.basePrice, finishes: currentCard.finishes })}
+                                        onClick={() =>
+                                            handleBuyNowClick({
+                                                slug: currentCard.slug,
+                                                name: currentCard.name,
+                                                basePrice: currentCard.basePrice,
+                                                finishes: currentCard.finishes,
+                                                cardType: currentCard.cardType
+                                            })
+                                        }
                                         className="w-full h-[50px] rounded-[8px] cursor-pointer border border-[#1A1A1A] flex items-center justify-center text-[14px]"
                                     >
                                         Buy Now
@@ -1074,7 +1109,15 @@ const LandingPage = () => {
                                         custom={18}
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        onClick={() => handleBuyNowClick({ slug: "complete-package", name: "Complete Package", basePrice: 60000, finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror'] })}
+                                        onClick={() =>
+                                            handleBuyNowClick({
+                                                slug: "complete-package",
+                                                name: "Complete Package",
+                                                basePrice: 60000,
+                                                cardType: "COMPLETE_PACKAGE",
+                                                finishes: ['Matte Black Metal', 'Gold Metal', 'Silver Metal', 'Gold mirror']
+                                            })
+                                        }
                                         className="w-[70px] h-[50px] rounded-[8px] border border-[#1A1A1A] flex items-center justify-center text-[14px]"
                                     >
                                         Buy
