@@ -9,7 +9,7 @@ import chat from "../../assets/chat.png";
 import head from "../../assets/head.png";
 import arrrow from "../../assets/arrrow.png";
 import logo from "../../assets/logo.png";
-import { Twitter, Linkedin, Github, Globe, Instagram, TikTok } from "lucide-react";
+import { Twitter, Linkedin, Github, Globe, Instagram } from "lucide-react";
 
 
 const DigitalCard = () => {
@@ -24,8 +24,6 @@ const DigitalCard = () => {
                 return <Twitter size={16} />;
             case "instagram":
                 return <Instagram size={16} />;
-            case "tiktok":
-                return <TikTok size={16} />;
             case "linkedin":
                 return <Linkedin size={12} />;
             case "github":
