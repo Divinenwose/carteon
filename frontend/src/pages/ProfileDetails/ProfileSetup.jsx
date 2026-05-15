@@ -176,6 +176,11 @@ const ProfileSetup = () => {
                 profileName:
                     profileData.identity.fullName || "My Professional Profile",
 
+                slug: profileData.identity.fullName
+                    .toLowerCase()
+                    .trim()
+                    .replace(/\s+/g, "-"),
+
                 theme: {
                     backgroundColor: profileData.theme.color || "#ffffff",
                     isCustomBrandTemplate: false,
