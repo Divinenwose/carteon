@@ -81,15 +81,16 @@ const DigitalCard = () => {
                     <div>
                         <div className="flex items-center justify-between">
                             <div className="flex flex-col  gap-3">
-                                <div className="flex gap-22">
-                                    <div>
-                                        <img src={crown} className="w-[20px] h-[20px]" alt="Crown-icon" />
-                                    </div>
-                                    <div>
-                                        <div className="inline-flex items-center px-4 py-1 bg-white rounded-full border border-gray-200 shadow-sm font-Inter font-medium text-[12px] text-[#334155]">
-                                            {profile.identity.title}
-                                        </div>
-                                    </div>
+                                <div className="flex items-center gap-2">
+                                    <img
+                                        src={crown}
+                                        className="w-[20px] h-[20px]"
+                                        alt="Crown-icon"
+                                    />
+
+                                    <span className="inline-flex items-center px-4 py-1 bg-white rounded-full border border-gray-200 shadow-sm font-inter font-medium text-[12px] text-[#334155]">
+                                        {profile.identity.title}
+                                    </span>
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <div>
@@ -156,7 +157,7 @@ const DigitalCard = () => {
                                         <div className="flex items-center gap-2">
                                             {getLinkIcon(link.type)}
 
-                                            <span className="font-inter font-medium text-[10.07px] text-[#252C46]">
+                                            <span className="font-inter font-medium text-[11px] text-[#252C46]">
                                                 {link.type}
                                             </span>
                                         </div>
