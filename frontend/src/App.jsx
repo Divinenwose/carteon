@@ -47,7 +47,6 @@ function App() {
           <Route path="/profiledetails" element={<ProfileSetup />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/success" element={<Success />} />
-          <Route path="/:identifier" element={<DigitalCard />} />
           <Route path="/card-setup" element={<CardSetup />} />
           <Route path="/profile-success" element={<ProfileLive />} />
           <Route path="/customer-support" element={<Customer />} />
@@ -61,6 +60,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
+        <Route path="/:identifier" element={<DigitalCard />} />
       </Routes>
     </>
   );
