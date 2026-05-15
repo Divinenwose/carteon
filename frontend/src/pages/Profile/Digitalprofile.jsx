@@ -9,7 +9,7 @@ import chat from "../../assets/chat.png";
 import head from "../../assets/head.png";
 import arrrow from "../../assets/arrrow.png";
 import logo from "../../assets/logo.png";
-import { Twitter, Linkedin, Github, Globe, Instagram } from "lucide-react";
+import { Twitter, Linkedin, Github, Globe, Instagram, TikTok } from "lucide-react";
 
 
 const DigitalCard = () => {
@@ -24,6 +24,8 @@ const DigitalCard = () => {
                 return <Twitter size={16} />;
             case "instagram":
                 return <Instagram size={16} />;
+            case "tiktok":
+                return <TikTok size={16} />;
             case "linkedin":
                 return <Linkedin size={16} />;
             case "github":
@@ -145,7 +147,7 @@ const DigitalCard = () => {
                     </div>
                     <div className="mt-7 px-2">
                         <h3 className="font-inter font-semibold text-[20px] text-[#1A1A1A] leading-[22px] tracking-[0%] align-middle">Links</h3>
-                        <div >
+                        <div className="mt-3">
                             <div className="flex flex-col gap-2">
                                 {profile.links.map((link) => (
                                     <a
@@ -181,7 +183,7 @@ const DigitalCard = () => {
                         >
                             Get Your Own Carteon Card Now
                         </button>
-                        <div className="w-full h-[77px] flex flex-col gap-3 pt-[17px] [border-top:1px_solid_#0000001A]">
+                        <div className="w-full h-[77px] flex flex-col gap-3 py-[17px] [border-top:1px_solid_#0000001A]">
                             <p className="font-inter font-normal text-[14px] text-[#737373] leading-[20px] tracking-[0px] text-center">
                                 Powered by
                             </p>
