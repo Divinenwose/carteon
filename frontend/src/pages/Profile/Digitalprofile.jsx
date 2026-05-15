@@ -83,16 +83,12 @@ const DigitalCard = () => {
                             <div className="flex flex-col  gap-3">
                                 <div className="flex gap-22">
                                     <div>
-                                        <img src={crown} alt="Crown-icon" />
+                                        <img src={crown} className="w-[20px] h-[20px]" alt="Crown-icon" />
                                     </div>
                                     <div>
-                                        <select
-                                            name="CEO"
-                                            id="CEO"
-                                            className="w-[83px] h-[34px] bg-white rounded-full border border-gray-200 shadow-sm text-sm  font-inter font-medium text-[12px] text-[#334155] leading-[20px] tracking-[0%] text-center align-middle"
-                                        >
-                                            <option value="CEO">CEO</option>
-                                        </select>
+                                        <div className="inline-flex items-center px-4 py-1 bg-white rounded-full border border-gray-200 shadow-sm font-Inter font-medium text-[12px] text-[#334155]">
+                                            {profile.identity.title}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-2">
@@ -147,7 +143,7 @@ const DigitalCard = () => {
                     </div>
                     <div className="mt-7 px-2">
                         <h3 className="font-inter font-semibold text-[20px] text-[#1A1A1A] leading-[22px] tracking-[0%] align-middle">Links</h3>
-                        <div className="mt-3">
+                        <div className="mt-5">
                             <div className="flex flex-col gap-2">
                                 {profile.links.map((link) => (
                                     <a
