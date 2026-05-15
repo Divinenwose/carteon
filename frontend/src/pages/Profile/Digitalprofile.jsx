@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import bg from "../../assets/bg.png";
 import crown from "../../assets/crown.png";
@@ -9,13 +9,32 @@ import chat from "../../assets/chat.png";
 import head from "../../assets/head.png";
 import arrrow from "../../assets/arrrow.png";
 import logo from "../../assets/logo.png";
+import { Twitter, Linkedin, Github, Globe, Instagram } from "lucide-react";
 
 
 const DigitalCard = () => {
     const { identifier } = useParams();
-
+    const navigate = useNavigate();
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const getLinkIcon = (type) => {
+        switch (type.toLowerCase()) {
+            case "twitter":
+                return <Twitter size={16} />;
+            case "instagram":
+                return <Instagram size={16} />;
+            case "linkedin":
+                return <Linkedin size={16} />;
+            case "github":
+                return <Github size={16} />;
+            case "website":
+            case "portfolio":
+                return <Globe size={16} />;
+            default:
+                return null;
+        }
+    };
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -129,23 +148,25 @@ const DigitalCard = () => {
                         <div >
                             <div className="flex flex-col gap-2">
                                 {profile.links.map((link) => (
-                                    <div
+                                    <a
                                         key={link._id}
-                                        className="w-[100%] h-[44px] flex justify-between bg-[#F9FAFF] p-[8.47px]"
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full h-[44px] flex justify-between items-center bg-[#F9FAFF] p-[8.47px] hover:bg-gray-100 transition"
                                     >
-                                        <a
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2 font-inter font-medium text-[10.07px] text-[#252C46]"
-                                        >
-                                            {link.type}
-                                        </a>
+                                        <div className="flex items-center gap-2">
+                                            {getLinkIcon(link.type)}
+
+                                            <span className="font-inter font-medium text-[10.07px] text-[#252C46]">
+                                                {link.type}
+                                            </span>
+                                        </div>
 
                                         <div>
                                             <img src={arrrow} alt="" />
                                         </div>
-                                    </div>
+                                    </a>
                                 ))}
                             </div>
                         </div>
@@ -154,7 +175,10 @@ const DigitalCard = () => {
                         <button className="w-full h-[48px] bg-[#252C46] rounded-[8px] py-[14px] px-[14px] font-inter font-medium text-[14px] text-white leading-[20px] tracking-[0px] text-center">
                             Share Your Contact
                         </button>
-                        <button className="w-full h-[48px] bg-white rounded-[8px] border border-[#0000001A] [border-top:1px_solid_#0000001A] py-[14px] px-[14px] font-inter font-medium text-[14px] text-[#0A0A0A] leading-[20px] tracking-[0px] text-center">
+                        <button
+                            onClick={() => navigate("/")}
+                            className="w-full h-[48px] bg-white rounded-[8px] border border-[#0000001A] [border-top:1px_solid_#0000001A] py-[14px] px-[14px] font-inter font-medium text-[14px] text-[#0A0A0A] leading-[20px] tracking-[0px] text-center"
+                        >
                             Get Your Own Carteon Card Now
                         </button>
                         <div className="w-full h-[77px] flex flex-col gap-3 pt-[17px] [border-top:1px_solid_#0000001A]">
