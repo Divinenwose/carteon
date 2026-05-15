@@ -27,7 +27,7 @@ const DigitalCard = () => {
             case "tiktok":
                 return <TikTok size={16} />;
             case "linkedin":
-                return <Linkedin size={16} />;
+                return <Linkedin size={12} />;
             case "github":
                 return <Github size={16} />;
             case "website":
