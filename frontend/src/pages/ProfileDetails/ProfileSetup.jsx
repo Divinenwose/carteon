@@ -179,6 +179,7 @@ const ProfileSetup = () => {
                 slug: profileData.identity.fullName
                     .toLowerCase()
                     .trim()
+                    .replace(/[^a-z0-9\s-]/g, "")
                     .replace(/\s+/g, "-"),
 
                 theme: {
@@ -195,13 +196,17 @@ const ProfileSetup = () => {
                 },
 
                 contactInfo: {
-                    phone: `+234${profileData.contactInfo.phone}`,
+                    phone: `+234${profileData.contactInfo.phone.replace(/^0/, "")}`,
                     email: profileData.contactInfo.email,
                 },
 
                 links: profileData.links
-                    .filter(link => link.platform && link.url)
-                    .map(link => ({
+                    .filter(
+                        (link) =>
+                            link.platform?.trim() &&
+                            link.url?.trim()
+                    )
+                    .map((link) => ({
                         type: link.platform,
                         url: link.url,
                     })),
@@ -556,7 +561,7 @@ const ProfileSetup = () => {
                                             <option value="Instagram">Instagram</option>
                                             <option value="Twitter">Twitter</option>
                                             <option value="Facebook">Facebook</option>
-                                            <option value="Portfolio">TikTok</option>
+                                            <option value="TikTok">TikTok</option>
                                             <option value="GitHub">GitHub</option>
                                         </select>
 
