@@ -36,10 +36,15 @@ const CardDetails = () => {
                         let hex = "#1A1A1A";
                         let image = "/images/black-card.png";
 
-                        if (finish.toLowerCase().includes("gold")) {
+                        const finishLower = finish.toLowerCase();
+
+                        if (finishLower.includes("gold mirror")) {
+                            hex = "#D4AF37";
+                            image = "/images/mirror-card.png";
+                        } else if (finishLower.includes("gold")) {
                             hex = "#D4AF37";
                             image = "/images/gold-card.png";
-                        } else if (finish.toLowerCase().includes("silver")) {
+                        } else if (finishLower.includes("silver")) {
                             hex = "#C0C0C0";
                             image = "/images/silver-card.png";
                         }
