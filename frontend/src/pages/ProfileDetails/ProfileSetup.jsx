@@ -229,7 +229,7 @@ const ProfileSetup = () => {
 
             toast.success("Profile created successfully");
 
-            const identifier = res.data.data.slug;
+            const identifier = res.data.data.profile.slug;
 
             setTimeout(() => {
 
