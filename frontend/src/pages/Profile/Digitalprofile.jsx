@@ -79,7 +79,7 @@ const DigitalCard = () => {
                     <div>
                         <div className="flex items-center justify-between">
                             <div className="flex flex-col  gap-3">
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center justify-between">
                                     <img
                                         src={crown}
                                         className="w-[20px] h-[20px]"
@@ -92,7 +92,7 @@ const DigitalCard = () => {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <div>
-                                        <h2 className="font-inter font-bold text-[17.27px] text-black leading-[27.09px] tracking-[0%]">{profile.identity.fullName}</h2>
+                                        <h2 className="font-inter font-bold text-[24px] text-black leading-[27.09px] tracking-[0%]">{profile.identity.fullName}</h2>
                                         <p className="font-inter font-normal text-[14px] text-black leading-[27px] tracking-[0%] align-middle">{profile.identity.title}</p>
                                         <p className="font-inter font-normal text-[14px] text-black leading-[27px] tracking-[0%] align-middle">{profile.identity.company}</p>
                                     </div>

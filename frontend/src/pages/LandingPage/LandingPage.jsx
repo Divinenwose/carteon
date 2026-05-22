@@ -71,6 +71,21 @@ const faqData = [
 const LandingPage = () => {
     const navigate = useNavigate();
     const [active, setActive] = useState(null);
+    const [openAll, setOpenAll] = useState(false);
+
+    const faqtoggle = (index) => {
+        if (openAll) {
+            setOpenAll(false);
+            setActive(index);
+        } else {
+            setActive(active === index ? null : index);
+        }
+    };
+
+    const handleViewAll = () => {
+        setOpenAll(!openAll);
+        setActive(null);
+    };
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -186,7 +201,7 @@ const LandingPage = () => {
 
                     <motion.div
                         variants={fadeUp}
-                        className="flex items-center flex-col gap-4"
+                        className="flex items-center gap-4"
                     >
                         <img src={avatar} alt="" />
 
@@ -1525,10 +1540,14 @@ const LandingPage = () => {
                             custom={2}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            href="#"
-                            className="mt-[20px] w-[151px] h-[51px] bg-[#252C46] rounded-[80px] py-[16px] px-[32px] font-[Inter] font-semibold text-[16px] text-white leading-[100%] flex items-center gap-[10px]"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleViewAll();
+                            }}
+                            className="mt-[20px] w-[151px] h-[51px] bg-[#252C46] rounded-[80px] py-[16px] px-[24px] font-[Inter] font-semibold text-[16px] text-white leading-[100%] flex items-center gap-[10px]"
                         >
-                            View all <img src={arrowright} alt="" />
+                            {openAll ? "Close all" : "View all"}
+                            <img src={arrowright} alt="" />
                         </motion.a>
                     </motion.div>
                 </motion.div>
@@ -1566,7 +1585,7 @@ const LandingPage = () => {
                             </div>
 
                             <AnimatePresence>
-                                {active === index && (
+                                {(openAll || active === index) && (
                                     <motion.div
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: "auto" }}
@@ -1616,7 +1635,7 @@ const LandingPage = () => {
                         <motion.a
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            href="#"
+                            href="/#choose"
                             className="w-full sm:w-[60%] md:w-[321px] h-[60px] rounded-[8px] bg-white shadow-[0px_10px_25px_-3px_rgba(255,255,255,0.3),0px_4px_6px_-2px_rgba(255,255,255,0.1)] pt-[16px] pr-[32px] pb-[16px] pl-[32px] font-inter font-medium text-[14px] sm:text-[15px] md:text-[15.3px] leading-[24px] sm:leading-[26px] md:leading-[28px] tracking-[0px] text-[#1A1A1A] text-center align-middle block mx-auto"
                         >
                             Order Your Card Now

@@ -83,7 +83,7 @@ const ProfileLive = () => {
 
     return (
         <section>
-            <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-start px-4 py-30">
+            <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-start px-4 py-10">
 
                 <div className="text-5xl mb-4">
                     <img src={confetti} alt="" />

@@ -72,7 +72,7 @@ const CardSetup = () => {
 
     return (
         <section>
-            <div className="flex justify-center px-4 my-30">
+            <div className="flex justify-center px-4 my-8">
                 <div className="w-full max-w-[700px]">
 
                     <h2 className="text-[24px] font-semibold text-left mb-2">

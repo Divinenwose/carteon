@@ -97,7 +97,7 @@ const Success = () => {
 
     return (
         <section>
-            <div className="flex flex-col items-center justify-center min-h-screen text-center px-4 mt-10">
+            <div className="flex flex-col items-center justify-center min-h-screen text-center px-4 mt-5">
 
                 <div>
                     <img src={confetti} alt="Confetti" className="mx-auto w-24 md:w-auto" />

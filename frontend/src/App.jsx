@@ -44,11 +44,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<LandingPage />} />
           <Route path="/cards/:slug" element={<CardDetails />} />
-          <Route path="/profiledetails" element={<ProfileSetup />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/card-setup" element={<CardSetup />} />
-          <Route path="/profile-success" element={<ProfileLive />} />
           <Route path="/customer-support" element={<Customer />} />
           <Route path="/shipping-policy" element={<Shipping />} />
           <Route path="/help-center" element={<Help />} />
@@ -61,6 +57,10 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/:identifier" element={<DigitalCard />} />
+        <Route path="/profiledetails" element={<ProfileSetup />} />
+        <Route path="/profile-success" element={<ProfileLive />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/card-setup" element={<CardSetup />} />
       </Routes>
     </>
   );

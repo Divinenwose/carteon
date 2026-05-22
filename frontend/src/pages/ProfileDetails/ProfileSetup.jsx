@@ -6,6 +6,105 @@ import axios from "axios";
 import Footer from "../../components/Footer/Footer.jsx";
 import upload from "../../assets/upload.png";
 
+const nigeriaCities = [
+    "Aba",
+    "Abakaliki",
+    "Abeokuta",
+    "Abuja",
+    "Ado-Ekiti",
+    "Akure",
+    "Asaba",
+    "Awka",
+    "Bauchi",
+    "Benin City",
+    "Birnin Kebbi",
+    "Calabar",
+    "Damaturu",
+    "Dutse",
+    "Ekiti",
+    "Enugu",
+    "Gombe",
+    "Gusau",
+    "Ibadan",
+    "Ife",
+    "Ijebu-Ode",
+    "Ilorin",
+    "Jalingo",
+    "Jos",
+    "Kaduna",
+    "Kano",
+    "Katsina",
+    "Lafia",
+    "Lagos",
+    "Lokoja",
+    "Maiduguri",
+    "Makurdi",
+    "Minna",
+    "Nsukka",
+    "Onitsha",
+    "Osogbo",
+    "Owerri",
+    "Owo",
+    "Port Harcourt",
+    "Sokoto",
+    "Umuahia",
+    "Uyo",
+    "Warri",
+    "Yenagoa",
+    "Yola",
+    "Zaria",
+];
+
+const countries = [
+    "Nigeria",
+    "Afghanistan",
+    "Algeria",
+    "Argentina",
+    "Australia",
+    "Austria",
+    "Bangladesh",
+    "Belgium",
+    "Brazil",
+    "Canada",
+    "China",
+    "Denmark",
+    "Egypt",
+    "Finland",
+    "France",
+    "Germany",
+    "Ghana",
+    "India",
+    "Indonesia",
+    "Ireland",
+    "Italy",
+    "Japan",
+    "Kenya",
+    "Malaysia",
+    "Mexico",
+    "Morocco",
+    "Netherlands",
+    "New Zealand",
+    "Nigeria",
+    "Norway",
+    "Pakistan",
+    "Poland",
+    "Portugal",
+    "Qatar",
+    "Russia",
+    "Saudi Arabia",
+    "Singapore",
+    "South Africa",
+    "South Korea",
+    "Spain",
+    "Sweden",
+    "Switzerland",
+    "Turkey",
+    "Uganda",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States",
+];
 
 const ProfileSetup = () => {
     const [step, setStep] = useState(1);
@@ -30,6 +129,7 @@ const ProfileSetup = () => {
 
     const cardIndex =
         location.state?.cardIndex ?? null;
+
 
     const [profileData, setProfileData] = useState({
         userId: "",
@@ -61,6 +161,48 @@ const ProfileSetup = () => {
 
     const [uploading, setUploading] = useState(false);
     const [uploadedImage, setUploadedImage] = useState(null);
+    const resizeImage = (file, maxWidth = 1200, quality = 0.7) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+
+            reader.readAsDataURL(file);
+
+            reader.onload = (event) => {
+                const img = new Image();
+
+                img.src = event.target.result;
+
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    const scaleSize = maxWidth / img.width;
+
+                    canvas.width = maxWidth;
+                    canvas.height = img.height * scaleSize;
+
+                    const ctx = canvas.getContext("2d");
+
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    canvas.toBlob(
+                        (blob) => {
+                            const resizedFile = new File(
+                                [blob],
+                                file.name,
+                                {
+                                    type: "image/jpeg",
+                                    lastModified: Date.now(),
+                                }
+                            );
+
+                            resolve(resizedFile);
+                        },
+                        "image/jpeg",
+                        quality
+                    );
+                };
+            };
+        });
+    };
 
     const next = () => setStep((prev) => prev + 1);
     const back = () => setStep((prev) => prev - 1);
@@ -190,7 +332,7 @@ const ProfileSetup = () => {
                 identity: {
                     fullName: profileData.identity.fullName,
                     title: profileData.identity.title,
-                    company: "Carteon",
+                    company: profileData.company,
                     bio: profileData.identity.bio,
                     photoUrl: profileData.identity.photo,
                 },
@@ -272,7 +414,7 @@ const ProfileSetup = () => {
 
     return (
         <section className=" w-full h-auto bg-white">
-            <div className="flex flex-col gap-4 items-center justify-center pt-[120px] sm:pt-20 md:pt-30 px-4 sm:px-6 md:px-0">
+            <div className="flex flex-col gap-4 items-center justify-center pt-[40px] sm:pt-20 md:pt-10 px-4 sm:px-6 md:px-0">
                 <h2 className="font-Inter font-semibold text-[36px] sm:text-[48px] md:text-[56px] leading-[41px] sm:leading-[54px] md:leading-[61.6px] tracking-[-1.12px] text-[#0F1419] text-center">
                     Create Your Digital Identity
                 </h2>
@@ -325,23 +467,30 @@ const ProfileSetup = () => {
                                                 disabled={uploading}
                                                 onChange={async (e) => {
                                                     const file = e.target.files[0];
+
                                                     if (!file) return;
 
-                                                    // Check file size
-                                                    if (file.size > 5 * 1024 * 1024) {
-                                                        alert("File is too large! Maximum size is 5MB.");
-                                                        return;
-                                                    }
+                                                    const allowedTypes = [
+                                                        "image/jpeg",
+                                                        "image/png",
+                                                        "image/gif",
+                                                    ];
 
-                                                    // Check file type
-                                                    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
                                                     if (!allowedTypes.includes(file.type)) {
                                                         alert("Invalid file format! Allowed: JPG, PNG, GIF.");
                                                         return;
                                                     }
 
-                                                    // Upload to Cloudinary
-                                                    await uploadImage(file);
+                                                    let finalFile = file;
+
+                                                    // Resize/compress if above 5MB
+                                                    if (file.size > 5 * 1024 * 1024) {
+                                                        alert("Image is large. Compressing automatically...");
+
+                                                        finalFile = await resizeImage(file);
+                                                    }
+
+                                                    await uploadImage(finalFile);
                                                 }}
                                             />
                                         </label>
@@ -381,6 +530,23 @@ const ProfileSetup = () => {
                                             identity: {
                                                 ...profileData.identity,
                                                 title: e.target.value,
+                                            },
+                                        })
+                                    }
+                                />
+                            </div>
+                            <div className="flex flex-col gap-3 w-full">
+                                <label htmlFor="" className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]">Company Name</label>
+                                <input
+                                    className="w-full h-[48px] bg-[#F3F3F5] rounded-[8px] pt-[4px] pb-[4px] px-[12px] border border-[#D4D4D4]"
+                                    placeholder="Carteon"
+                                    value={profileData.company}
+                                    onChange={(e) =>
+                                        setProfileData({
+                                            ...profileData,
+                                            identity: {
+                                                ...profileData.identity,
+                                                company: e.target.value,
                                             },
                                         })
                                     }
@@ -494,20 +660,64 @@ const ProfileSetup = () => {
                                 />
                             </div>
                             <div className="flex flex-col gap-3 w-full">
-                                <label htmlFor="Phone" className="font-Inter font-medium text-[14px] leading-[14px] tracking-[0px] text-[#404040]" >Location</label>
-                                <input
-                                    className="w-full h-[48px] bg-[#F3F3F5] rounded-[8px] pt-[4px] pb-[4px] px-[12px] border border-[#D4D4D4]"
-                                    placeholder="Lagos, Nigeria"
+                                <label
+                                    htmlFor="country"
+                                    className="font-Inter font-medium text-[14px] leading-[14px] text-[#404040]"
+                                >
+                                    Location
+                                </label>
+
+                                <select
+                                    id="country"
+                                    className="w-full h-[48px] bg-[#F3F3F5] rounded-[8px] px-[12px] border border-[#D4D4D4]"
+                                    value={profileData.contactInfo.country || ""}
                                     onChange={(e) =>
                                         setProfileData({
                                             ...profileData,
                                             contactInfo: {
                                                 ...profileData.contactInfo,
-                                                location: e.target.value,
+                                                country: e.target.value,
+                                                location:
+                                                    e.target.value === "Nigeria"
+                                                        ? ""
+                                                        : e.target.value,
                                             },
                                         })
                                     }
-                                />
+                                >
+                                    <option value="">Select Country</option>
+
+                                    {countries.map((country, index) => (
+                                        <option key={index} value={country}>
+                                            {country}
+                                        </option>
+                                    ))}
+                                </select>
+
+                                {/* Show city dropdown only for Nigeria */}
+                                {profileData.contactInfo.country === "Nigeria" && (
+                                    <select
+                                        className="w-full h-[48px] bg-[#F3F3F5] rounded-[8px] px-[12px] border border-[#D4D4D4]"
+                                        value={profileData.contactInfo.location || ""}
+                                        onChange={(e) =>
+                                            setProfileData({
+                                                ...profileData,
+                                                contactInfo: {
+                                                    ...profileData.contactInfo,
+                                                    location: `${e.target.value}, Nigeria`,
+                                                },
+                                            })
+                                        }
+                                    >
+                                        <option value="">Select City</option>
+
+                                        {nigeriaCities.map((city, index) => (
+                                            <option key={index} value={city}>
+                                                {city}
+                                            </option>
+                                        ))}
+                                    </select>
+                                )}
                             </div>
                             <div className="flex gap-3 mt-4">
                                 <button

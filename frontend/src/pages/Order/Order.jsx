@@ -52,10 +52,6 @@ const Checkout = () => {
         name: "",
         email: "",
         phone: "",
-        address: "",
-        city: "",
-        state: "",
-        zip: "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -93,7 +89,6 @@ const Checkout = () => {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone,
-                    address: formData.address,
                 },
                 items: [
                     {
@@ -112,7 +107,6 @@ const Checkout = () => {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone,
-                    address: formData.address,
                 },
                 items: [
                     {
@@ -130,10 +124,6 @@ const Checkout = () => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        'Authorization': `Bearer ${localStorage.getItem("token") ||
-                            sessionStorage.getItem("token") ||
-                            ""
-                            }`,
                     },
                 }
             );
@@ -190,7 +180,7 @@ const Checkout = () => {
                         Contact Information
                     </h2>
                     <div className="space-y-4 sm:space-y-5">
-                        {["name", "email", "phone", "address", "city", "state", "zip"].map((field) => (
+                        {["name", "email", "phone"].map((field) => (
                             <div key={field} className="flex flex-col gap-2 sm:gap-3">
                                 <label className="font-Inter font-normal text-[14px] sm:text-[15px] leading-[120%] text-[#1A1A1A]">
                                     {field.charAt(0).toUpperCase() + field.slice(1).replace("_", " ")}
