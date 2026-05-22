@@ -73,7 +73,7 @@ const Checkout = () => {
     };
 
     const handlePayment = async () => {
-        if (!formData.name || !formData.email || !formData.phone || !formData.address) {
+        if (!formData.name || !formData.email || !formData.phone) {
             alert("Please fill all required fields");
             return;
         }
