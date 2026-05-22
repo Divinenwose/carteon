@@ -32,14 +32,6 @@ const Checkout = () => {
                 })
             );
 
-            toast.error("Please log in before checking out");
-
-            navigate("/login", {
-                state: {
-                    from: "/checkout",
-                },
-            });
-
             return;
         }
 
